@@ -7,61 +7,52 @@ const AVERAGE_PRIVATE_SALARY = 71_590;
 const categories = [
   { id: "all", label: "全部" },
   { id: "daily", label: "日常刚需" },
-  { id: "home", label: "家电数码" },
-  { id: "property", label: "买房买车" },
+  { id: "home", label: "奢侈品" },
+  { id: "property", label: "豪车豪宅" },
   { id: "family", label: "养娃养老" },
   { id: "mood", label: "情绪消费" },
   { id: "wild", label: "离谱撒币" }
 ];
 
 const items = [
-  { id: "coin", name: "幸运硬币", price: 1, category: "daily", image: "assets/items/yuan-coin.jpg", alt: "人民币硬币", heat: "精确找零", note: "最后一块钱也得花明白。" },
-  { id: "milk-tea", name: "奶茶加小料", price: 18, category: "daily", image: "assets/items/milk-tea.jpg", alt: "一杯珍珠奶茶", heat: "快乐水", note: "先买杯奶茶压压惊。" },
-  { id: "takeout", name: "工作日外卖", price: 35, category: "daily", image: "assets/items/takeout.jpg", alt: "外卖骑手", heat: "打工人", note: "不做饭，也是一种生产力。" },
-  { id: "subway", name: "一个月地铁通勤", price: 300, category: "daily", image: "assets/items/subway.jpg", alt: "城市轨道交通", heat: "通勤账单", note: "每天挤一次，钱包基本没感觉。" },
-  { id: "movie", name: "周末电影票", price: 60, category: "daily", image: "assets/items/cinema.jpg", alt: "电影院内景", heat: "小确幸", note: "爆米花另算，快乐也另算。" },
-  { id: "hotpot", name: "火锅双人餐", price: 388, category: "daily", image: "assets/items/hotpot.jpg", alt: "火锅", heat: "聚餐", note: "鸳鸯锅能解决一半家庭矛盾。" },
+  { id: "coin", name: "1 元人民币硬币", price: 1, category: "daily", image: "assets/items/coin.jpg", alt: "人民币硬币", heat: "货币", note: "最后一块钱也得花明白。" },
+  { id: "milk-tea", name: "大杯珍珠奶茶", price: 18, category: "daily", image: "assets/items/milk-tea.jpg", alt: "一杯珍珠奶茶", heat: "饮品", note: "先买杯奶茶压压惊。" },
+  { id: "movie", name: "电影票 1 张", price: 60, category: "daily", image: "assets/items/movie.jpg", alt: "电影票票根", heat: "文娱票务", note: "爆米花另算，快乐也另算。" },
+  { id: "hotpot", name: "双人牛肉火锅套餐", price: 388, category: "daily", image: "assets/items/hotpot.jpg", alt: "火锅", heat: "餐饮套餐", note: "鸳鸯锅能解决一半家庭矛盾。" },
 
-  { id: "phone", name: "旗舰手机", price: 7999, category: "home", image: "assets/items/phone.jpg", alt: "智能手机", heat: "数码刚需", note: "每年都说还能再战一年。" },
-  { id: "robot-vacuum", name: "扫地机器人", price: 3999, category: "home", image: "assets/items/robot-vacuum.jpg", alt: "扫地机器人", heat: "懒人科技", note: "给家里请一个不会顶嘴的保洁。" },
-  { id: "washer-dryer", name: "洗烘套装", price: 12999, category: "home", image: "assets/items/washer-dryer.jpg", alt: "洗衣机和烘干机", heat: "大件", note: "南方回南天看了会沉默。" },
-  { id: "air-conditioner", name: "全屋中央空调", price: 60000, category: "home", image: "assets/items/villa.jpg", alt: "住宅空间", heat: "装修坑", note: "装的时候心痛，用的时候真香。" },
-  { id: "smart-home", name: "全屋智能", price: 200000, category: "home", image: "assets/items/data-center.jpg", alt: "智能设备氛围图", heat: "科技宅", note: "灯自己亮，比人还懂下班。" },
+  { id: "luxury-bag", name: "鳄鱼皮手工提包", price: 180_000, category: "home", image: "assets/items/luxury-bag.jpg", alt: "鳄鱼皮手工提包", heat: "皮具", note: "装得下手机，装不下价格。" },
+  { id: "mechanical-watch", name: "陀飞轮机械腕表", price: 1_200_000, category: "home", image: "assets/items/mechanical-watch.jpg", alt: "陀飞轮机械腕表", heat: "高级制表", note: "看时间只要一秒，买它要花一套首付。" },
+  { id: "diamond-ring", name: "5 克拉圆钻戒指", price: 3_500_000, category: "home", image: "assets/items/diamond-ring.jpg", alt: "五克拉圆钻戒指", heat: "珠宝", note: "求婚还没开始，预算先单膝跪地。" },
+  { id: "supercar", name: "兰博基尼 Centenario", price: 20_000_000, category: "home", image: "assets/items/supercar.jpg", alt: "兰博基尼 Centenario 超级跑车", heat: "超级跑车", note: "堵在晚高峰里，也比旁边贵几套房。" },
+  { id: "superyacht", name: "Azimut VESTA 游艇", price: 800_000_000, category: "home", image: "assets/items/superyacht.jpg", alt: "海面上的 Azimut VESTA 游艇", heat: "私人游艇", note: "买船只是开始，养船才是连续剧。" },
 
-  { id: "ev", name: "新能源车", price: 250000, category: "property", image: "assets/items/electric-car.jpg", alt: "电动车充电", heat: "车库+1", note: "续航焦虑不如余额焦虑。" },
-  { id: "parking", name: "小区车位", price: 300000, category: "property", image: "assets/items/electric-car.jpg", alt: "停车位氛围图", heat: "隐藏大件", note: "车还没买，车位先把人拿下。" },
-  { id: "county-home", name: "县城房首付", price: 300000, category: "property", image: "assets/items/villa.jpg", alt: "住宅楼", heat: "人生账单", note: "亲戚饭桌上终于有话题了。" },
-  { id: "city-home", name: "一线城市 90 平", price: 12_000_000, category: "property", image: "assets/items/future-city.jpg", alt: "城市天际线", heat: "刚需房", note: "够买一套刚需房，也够焦虑好多年。" },
-  { id: "school-district", name: "学区房", price: 18_000_000, category: "property", image: "assets/items/future-city.jpg", alt: "城市住宅区", heat: "爸妈沉默", note: "孩子还没上学，钱包先毕业了。" },
+  { id: "luxury-villa", name: "苏梅岛泳池别墅", price: 80_000_000, category: "property", image: "assets/items/luxury-villa.jpg", alt: "苏梅岛带泳池别墅", heat: "别墅", note: "房子只买一套，但泳池得比客厅大。" },
+  { id: "private-jet", name: "湾流 G800 私人飞机", price: 500_000_000, category: "property", image: "assets/items/private-jet.jpg", alt: "飞行中的湾流 G800 私人飞机", heat: "公务航空", note: "不用赶航班，因为航班等你。" },
 
-  { id: "nanny", name: "月嫂 42 天", price: 68000, category: "family", image: "assets/items/baby-care.jpg", alt: "新生儿", heat: "新手父母", note: "睡眠自由的价格，写在合同里。" },
-  { id: "tutoring", name: "孩子一年补习", price: 120000, category: "family", image: "assets/items/baby-care.jpg", alt: "孩子教育氛围图", heat: "教育账单", note: "分数还没涨，账单先涨了。" },
-  { id: "insurance", name: "全家商业保险", price: 150000, category: "family", image: "assets/items/shopping-coupon.jpg", alt: "票券文件", heat: "安全感", note: "买的时候心疼，真用上更心疼。" },
-  { id: "health-check", name: "父母高端体检", price: 30000, category: "family", image: "assets/items/nursing-home.jpg", alt: "养老照护场景", heat: "孝心消费", note: "这笔钱花出去，心里踏实一点。" },
-  { id: "nursing-home", name: "养老院一年", price: 180000, category: "family", image: "assets/items/nursing-home.jpg", alt: "养老院", heat: "长期账单", note: "养老不是远方，是每月扣款。" },
+  { id: "nanny", name: "42 天住家月嫂服务", price: 68000, category: "family", image: "assets/items/nanny.jpg", alt: "新生儿护理", heat: "母婴服务", note: "睡眠自由的价格，写在合同里。" },
+  { id: "tutoring", name: "中小学生全年课外辅导", price: 120000, category: "family", image: "assets/items/tutoring.jpg", alt: "学生课外辅导", heat: "教育服务", note: "分数还没涨，账单先涨了。" },
+  { id: "insurance", name: "一家三口年度商业保险", price: 150000, category: "family", image: "assets/items/insurance.jpg", alt: "商业保险保单", heat: "年度保险", note: "买的时候心疼，真用上更心疼。" },
+  { id: "health-check", name: "父母双人全身体检套餐", price: 30000, category: "family", image: "assets/items/health-check.jpg", alt: "全身体检中心大厅", heat: "医疗服务", note: "这笔钱花出去，心里踏实一点。" },
+  { id: "nursing-home", name: "高端养老院单人一年", price: 180000, category: "family", image: "assets/items/nursing-home.jpg", alt: "养老院", heat: "养老服务", note: "养老不是远方，是每月扣款。" },
 
-  { id: "concert", name: "演唱会内场票", price: 1880, category: "mood", image: "assets/items/concert.jpg", alt: "演唱会观众", heat: "情绪价值", note: "抢不到票的时候，钱都没资格花。" },
-  { id: "sanya", name: "三亚亲子游", price: 30000, category: "mood", image: "assets/items/sanya-beach.jpg", alt: "三亚海滩", heat: "带娃放风", note: "孩子玩沙，大人刷卡。" },
-  { id: "spring-trip", name: "春节全家出境游", price: 120000, category: "mood", image: "assets/items/airport-travel.jpg", alt: "机场航站楼", heat: "春节档", note: "机票越贵，朋友圈越值。" },
-  { id: "cinema-buyout", name: "包场电影院", price: 50000, category: "mood", image: "assets/items/cinema.jpg", alt: "电影院", heat: "排面", note: "再也不用担心前排有人举手机。" },
-  { id: "wedding", name: "办一场婚礼", price: 300000, category: "mood", image: "assets/items/wedding.jpg", alt: "婚宴", heat: "人生大场面", note: "一天花掉一辆车，大家还说值。" },
+  { id: "spring-trip", name: "四口之家春节出境游", price: 120000, category: "mood", image: "assets/items/spring-trip.jpg", alt: "全家在机场出境旅行", heat: "家庭旅行", note: "机票越贵，朋友圈越值。" },
+  { id: "wedding", name: "五星级酒店 30 桌婚宴", price: 300000, category: "mood", image: "assets/items/wedding.jpg", alt: "五星级酒店婚宴", heat: "婚庆服务", note: "一天花掉一辆车，大家还说值。" },
 
-  { id: "tea-chain", name: "买下茶饮连锁", price: 8_000_000_000, category: "wild", image: "assets/items/milk-tea.jpg", alt: "奶茶", heat: "这是真撒币", note: "以后新品名就叫马斯克多肉葡萄。" },
-  { id: "tour-title", name: "冠名全国巡演", price: 500_000_000, category: "wild", image: "assets/items/concert.jpg", alt: "演出现场", heat: "全网刷屏", note: "每张票根都写着你花过钱。" },
-  { id: "football-club", name: "买下中超俱乐部", price: 2_000_000_000, category: "wild", image: "assets/items/soccer-stadium.jpg", alt: "足球场", heat: "老板入场", note: "花钱容易，赢球另说。" },
-  { id: "hospital", name: "建一座三甲医院", price: 5_000_000_000, category: "wild", image: "assets/items/nursing-home.jpg", alt: "医疗建筑氛围图", heat: "城市级", note: "这钱花出去，评论区会安静一点。" },
-  { id: "metro-line", name: "修一条地铁线", price: 30_000_000_000, category: "wild", image: "assets/items/subway.jpg", alt: "地铁列车", heat: "修到家门口", note: "从此房产中介多一句话术。" },
-  { id: "city-coupon", name: "发全城消费券", price: 10_000_000_000, category: "wild", image: "assets/items/shopping-coupon.jpg", alt: "优惠券", heat: "全城撒券", note: "大家都说谢谢，顺便问第二轮呢。" },
-  { id: "datacenter", name: "AI 数据中心", price: 542_412_000_000, category: "wild", image: "assets/items/data-center.jpg", alt: "数据中心机房", heat: "算力黑洞", note: "电费看了都想开会。" },
-  { id: "rocket", name: "火箭发射", price: 8_136_180_000, category: "wild", image: "assets/items/rocket-launch.jpg", alt: "火箭发射", heat: "上天", note: "这回不是上头，是真的上天。" },
-  { id: "mars", name: "火星基地一期", price: 4_068_090_000_000, category: "wild", image: "assets/items/mars-base.jpg", alt: "火星全球影像", heat: "终极项目", note: "地球上的钱，花到火星上。" }
+  { id: "tour-title", name: "全国体育馆巡演总冠名", price: 500_000_000, category: "wild", image: "assets/items/tour-title.jpg", alt: "全国巡演舞台", heat: "广告冠名", note: "每张票根都写着你花过钱。" },
+  { id: "football-club", name: "中超足球俱乐部 100% 股权", price: 2_000_000_000, category: "wild", image: "assets/items/football-club.jpg", alt: "中超足球俱乐部球场", heat: "体育资产", note: "花钱容易，赢球另说。" },
+  { id: "hospital", name: "1000 床三级甲等综合医院", price: 5_000_000_000, category: "wild", image: "assets/items/hospital.jpg", alt: "三级甲等综合医院大楼", heat: "医疗基建", note: "这钱花出去，评论区会安静一点。" },
+  { id: "metro-line", name: "30 公里城市地铁线路", price: 30_000_000_000, category: "wild", image: "assets/items/metro-line.jpg", alt: "城市地铁线路", heat: "轨道交通", note: "从此房产中介多一句话术。" },
+  { id: "city-coupon", name: "100 亿元全城消费券", price: 10_000_000_000, category: "wild", image: "assets/items/city-coupon.jpg", alt: "城市消费券", heat: "城市补贴", note: "大家都说谢谢，顺便问第二轮呢。" },
+  { id: "datacenter", name: "1 吉瓦 AI 数据中心园区", price: 542_412_000_000, category: "wild", image: "assets/items/datacenter.jpg", alt: "AI 数据中心服务器机房", heat: "算力基建", note: "电费看了都想开会。" },
+  { id: "rocket", name: "大型运载火箭发射 1 次", price: 8_136_180_000, category: "wild", image: "assets/items/rocket.jpg", alt: "大型运载火箭发射", heat: "商业航天", note: "这回不是上头，是真的上天。" },
+  { id: "mars", name: "火星基地一期工程", price: 4_068_090_000_000, category: "wild", image: "assets/items/mars.jpg", alt: "火星基地一期工程概念图", heat: "太空工程", note: "地球上的钱，花到火星上。" }
 ];
 
 const achievements = [
   { id: "first", title: "第一笔消费", copy: "买下任意一件东西。", test: s => s.spent > 0 },
   { id: "milkTea", title: "奶茶自由", copy: "买过奶茶，快乐先到账。", test: s => (s.cart["milk-tea"] || 0) > 0 },
   { id: "million", title: "百万入门", copy: "累计花费超过 100 万元。", test: s => s.spent >= 1_000_000 },
-  { id: "landlord", title: "一线房东", copy: "买下一线城市 90 平或学区房。", test: s => (s.cart["city-home"] || 0) > 0 || (s.cart["school-district"] || 0) > 0 },
+  { id: "landlord", title: "别墅业主", copy: "买下一座苏梅岛泳池别墅。", test: s => (s.cart["luxury-villa"] || 0) > 0 },
   { id: "familyBill", title: "养娃账单", copy: "买过任意养娃养老项目。", test: s => ownedItems(s).some(item => item.category === "family") },
   { id: "couponRain", title: "全城撒券", copy: "发过一轮全城消费券。", test: s => (s.cart["city-coupon"] || 0) > 0 },
   { id: "metro", title: "修到地铁了", copy: "修一条地铁线。", test: s => (s.cart["metro-line"] || 0) > 0 },
@@ -72,17 +63,20 @@ const achievements = [
 const state = {
   balance: STARTING_BALANCE,
   spent: 0,
+  biggestPurchase: 0,
   cart: {},
   timeLimit: 0,
   timeLeft: 0,
   timerId: null,
   started: false,
   category: "all",
-  sort: "default",
+  sort: "priceAsc",
   search: "",
   ownedOnly: false,
   quantityMode: "1",
-  quantity: 1
+  quantity: 1,
+  clearPending: false,
+  lastAction: "还没开买，先挑一个顺眼的。"
 };
 
 const money = new Intl.NumberFormat("zh-CN", { style: "currency", currency: "CNY", maximumFractionDigits: 0 });
@@ -100,15 +94,38 @@ function formatChineseAmount(value) {
   return `${integer.format(value)} 元`;
 }
 
+function getCategoryLabel(id) {
+  return categories.find(category => category.id === id)?.label || "本局推荐";
+}
+
+function getUnlockedAchievementIds(snapshot = state) {
+  return new Set(achievements.filter(achievement => achievement.test(snapshot)).map(achievement => achievement.id));
+}
+
+function formatPercent(value) {
+  if (value === 0) return "0%";
+  if (value < 0.01) return "<0.01%";
+  return `${value.toFixed(value < 1 ? 2 : 1)}%`;
+}
+
+function flashElement(element, className) {
+  if (!element) return;
+  element.classList.remove(className);
+  window.requestAnimationFrame(() => {
+    element.classList.add(className);
+    window.setTimeout(() => element.classList.remove(className), 260);
+  });
+}
+
 function renderRealityCheck() {
   const lotteryDays = STARTING_BALANCE / LOTTERY_PRIZE;
   const lotteryYears = lotteryDays / 365;
   const salaryYears = STARTING_BALANCE / AVERAGE_PRIVATE_SALARY;
-  el("worthCompact").textContent = formatChineseAmount(STARTING_BALANCE);
+  el("worthCompact").textContent = `约${(STARTING_BALANCE / 1_0000_0000_0000).toFixed(2)}万亿元`;
   el("worthDetail").textContent = `按实时富豪榜净值折算，口径见数据说明`;
-  el("lotteryDays").textContent = `约 ${(lotteryDays / 10000).toFixed(1)} 万天`;
+  el("lotteryDays").textContent = `约${(lotteryDays / 10000).toFixed(1)}万天`;
   el("lotteryYears").textContent = `约 ${integer.format(Math.round(lotteryYears))} 年，天天送中大奖也要从古代中到现在。`;
-  el("salaryYears").textContent = `约 ${integer.format(Math.round(salaryYears))} 年`;
+  el("salaryYears").textContent = `约${(salaryYears / 10000).toFixed(0)}万年`;
 }
 
 function ownedItems(snapshot = state) {
@@ -127,7 +144,7 @@ function filteredItems() {
   if (state.category !== "all") shown = shown.filter(item => item.category === state.category);
   if (state.search.trim()) {
     const term = state.search.trim().toLowerCase();
-    shown = shown.filter(item => `${item.name} ${item.heat} ${item.note} ${categories.find(cat => cat.id === item.category)?.label}`.toLowerCase().includes(term));
+    shown = shown.filter(item => `${item.name} ${item.heat} ${item.note} ${item.rankLabel || ""} ${getCategoryLabel(item.category)}`.toLowerCase().includes(term));
   }
   if (state.ownedOnly) shown = shown.filter(item => (state.cart[item.id] || 0) > 0);
   if (state.sort === "priceAsc") shown.sort((a, b) => a.price - b.price);
@@ -137,7 +154,7 @@ function filteredItems() {
 
 function renderPills() {
   el("categoryPills").innerHTML = categories.map(category => `
-    <button class="${state.category === category.id ? "active" : ""}" data-category="${category.id}">
+    <button type="button" class="${state.category === category.id ? "active" : ""}" data-category="${category.id}">
       ${category.label}
     </button>
   `).join("");
@@ -149,11 +166,10 @@ function renderShop() {
     const owned = state.cart[item.id] || 0;
     const quantity = getQuantity(item);
     const affordable = quantity > 0 && item.price * quantity <= state.balance;
-    const maxCount = Math.floor(state.balance / item.price);
     return `
-      <article class="shop-card" data-category="${item.category}">
+      <article class="shop-card ${owned ? "is-bought" : ""}" id="card-${item.id}" data-category="${item.category}">
         <div class="item-art image-fallback" data-fallback="${item.name}">
-          <img src="${item.image}" alt="${item.alt}" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('failed');" />
+          <img src="${item.image}" alt="${item.alt}" width="320" height="240" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('failed');" />
         </div>
         <div class="item-body">
           <div class="item-head">
@@ -161,12 +177,10 @@ function renderShop() {
             <span class="owned">已买 ${owned.toLocaleString("zh-CN")}</span>
           </div>
           <div class="item-name">${item.name}</div>
-          <p class="item-note">${item.note}</p>
           <div class="price">${formatMoney(item.price)}</div>
-          <div class="item-meta">本次 ${state.quantityMode === "max" ? `最多 ${maxCount.toLocaleString("zh-CN")}` : `${quantity.toLocaleString("zh-CN")}`} 件</div>
           <div class="item-actions">
-            <button class="buy" data-buy="${item.id}" ${affordable ? "" : "disabled"}>购买</button>
-            <button class="sell" data-sell="${item.id}" ${owned ? "" : "disabled"}>卖出</button>
+            <button class="buy" type="button" data-buy="${item.id}" ${affordable ? "" : "disabled"}>购买</button>
+            <button class="sell" type="button" data-sell="${item.id}" ${owned ? "" : "disabled"}>卖出</button>
           </div>
         </div>
       </article>
@@ -189,6 +203,8 @@ function renderReceipt() {
 }
 
 function renderAchievements() {
+  const unlockedCount = achievements.filter(achievement => achievement.test(state)).length;
+  el("unlockedCountText").textContent = `${unlockedCount}/${achievements.length}`;
   el("achievementList").innerHTML = achievements.map(achievement => {
     const unlocked = achievement.test(state);
     return `
@@ -209,6 +225,10 @@ function renderStats() {
   el("spentMeter").style.width = `${pct}%`;
   el("timerText").textContent = state.timeLimit ? `${state.timeLeft} 秒` : "不限时";
   el("quantityText").textContent = state.quantityMode === "max" ? "最大可买" : `${state.quantity} 件`;
+  el("spentPercentText").textContent = formatPercent(pct);
+  el("biggestPurchaseText").textContent = state.biggestPurchase ? formatChineseAmount(state.biggestPurchase) : "¥0";
+  el("lastActionText").textContent = state.lastAction;
+  el("clearCart").textContent = state.clearPending ? "确认清空" : "清空购物车";
 }
 
 function render() {
@@ -241,11 +261,25 @@ function buy(id) {
   const maxCount = Math.floor(state.balance / item.price);
   const count = Math.min(quantity, maxCount);
   if (count <= 0) return;
+  const unlockedBefore = getUnlockedAchievementIds();
   startTimerIfNeeded();
+  state.clearPending = false;
   state.cart[id] = (state.cart[id] || 0) + count;
   state.balance -= item.price * count;
-  state.spent += item.price * count;
+  const purchaseTotal = item.price * count;
+  state.spent += purchaseTotal;
+  state.biggestPurchase = Math.max(state.biggestPurchase, purchaseTotal);
+  state.lastAction = `买入 ${item.name} x ${count.toLocaleString("zh-CN")}，刷掉 ${formatMoney(purchaseTotal)}。`;
   render();
+  const unlockedAfter = getUnlockedAchievementIds();
+  const newAchievement = achievements.find(achievement => !unlockedBefore.has(achievement.id) && unlockedAfter.has(achievement.id));
+  if (newAchievement) {
+    state.lastAction = `解锁成就：${newAchievement.title}。${newAchievement.copy}`;
+    renderStats();
+  }
+  flashElement(el("balanceText"), "balance-tick");
+  flashElement(el(`card-${id}`), "deal-flash");
+  flashElement(el("lastActionText"), "toast-flash");
   if (state.balance === 0) showFinish(true);
 }
 
@@ -254,27 +288,33 @@ function sell(id) {
   const owned = state.cart[id] || 0;
   if (!owned) return;
   const count = Math.min(state.quantityMode === "max" ? owned : Math.max(1, Number(state.quantity) || 1), owned);
+  state.clearPending = false;
   state.cart[id] -= count;
   if (state.cart[id] <= 0) delete state.cart[id];
   state.balance += item.price * count;
   state.spent -= item.price * count;
+  state.lastAction = `卖出 ${item.name} x ${count.toLocaleString("zh-CN")}，退回 ${formatMoney(item.price * count)}。`;
   render();
+  flashElement(el("balanceText"), "balance-tick");
+  flashElement(el("lastActionText"), "toast-flash");
 }
 
 function resetGame() {
   window.clearInterval(state.timerId);
   state.balance = STARTING_BALANCE;
   state.spent = 0;
+  state.biggestPurchase = 0;
   state.cart = {};
   state.category = "all";
-  state.sort = "default";
+  state.sort = "priceAsc";
   state.search = "";
   state.ownedOnly = false;
   state.timeLeft = state.timeLimit;
   state.timerId = null;
   state.started = false;
+  state.clearPending = false;
+  state.lastAction = "还没开买，先挑一个顺眼的。";
   el("copyStatus").textContent = "";
-  el("categoryFilter").value = state.category;
   el("sortSelect").value = state.sort;
   el("searchInput").value = state.search;
   el("ownedOnly").checked = state.ownedOnly;
@@ -283,10 +323,21 @@ function resetGame() {
 }
 
 function clearCart() {
+  if (state.spent > 0 && !state.clearPending) {
+    state.clearPending = true;
+    state.lastAction = "再点一次确认清空，战绩单会回到开局状态。";
+    el("copyStatus").textContent = "再点一次“确认清空”才会清空购物车。";
+    renderStats();
+    flashElement(el("lastActionText"), "toast-flash");
+    return;
+  }
   state.balance = STARTING_BALANCE;
   state.spent = 0;
+  state.biggestPurchase = 0;
   state.cart = {};
   state.ownedOnly = false;
+  state.clearPending = false;
+  state.lastAction = "战绩单已清空。";
   el("ownedOnly").checked = false;
   el("copyStatus").textContent = "战绩单已清空。";
   render();
@@ -332,7 +383,6 @@ function showFinish(success) {
 
 function setCategory(category) {
   state.category = category;
-  el("categoryFilter").value = category;
   render();
 }
 
@@ -367,7 +417,6 @@ el("quantityNumber").addEventListener("input", event => {
   render();
 });
 
-el("categoryFilter").addEventListener("change", event => setCategory(event.target.value));
 el("sortSelect").addEventListener("change", event => {
   state.sort = event.target.value;
   render();
@@ -407,9 +456,13 @@ document.querySelector(".challenge").addEventListener("click", event => {
 document.querySelector(".tabs").addEventListener("click", event => {
   const tab = event.target.closest(".tab");
   if (!tab) return;
-  document.querySelectorAll(".tab").forEach(entry => entry.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(entry => {
+    entry.classList.remove("active");
+    entry.setAttribute("aria-selected", "false");
+  });
   document.querySelectorAll(".tab-view").forEach(entry => entry.classList.remove("active"));
   tab.classList.add("active");
+  tab.setAttribute("aria-selected", "true");
   el(tab.dataset.tab === "receipt" ? "receiptView" : "achievementView").classList.add("active");
 });
 
