@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "hero-rocket",
+    "file": "assets/items/hero-rocket.jpg",
+    "purpose": "Rocket launch",
+    "title": "File:Space Shuttle Columbia launching.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg",
+    "author": "NASA",
+    "license": "Public domain",
+    "credit": "https://images.nasa.gov/details/81pc0382 http://grin.hq.nasa.gov/ABSTRACTS/GPN-2000-000650.html on the Wayback Machine at the Wayback Machine http://grin.hq.nasa.gov/IMAGES/LARGE/GPN-2000-000650.jpg on the Wayback Machine at the Wayback Machine"
+  },
+  {
+    "slug": "coffee",
+    "file": "assets/items/coffee.jpg",
+    "purpose": "Coffee cup",
+    "title": "File:Cappuccino art, Luci’s Cafe, Bawley Point, NSW, 2023.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cappuccino_art,_Luci%E2%80%99s_Cafe,_Bawley_Point,_NSW,_2023.jpg",
+    "author": "Kgbo",
+    "license": "CC BY-SA 4.0",
+    "credit": "Own work"
+  },
+  {
+    "slug": "phone",
+    "file": "assets/items/phone.jpg",
+    "purpose": "Smartphone",
+    "title": "File:Smartphone with case cover on table.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Smartphone_with_case_cover_on_table.jpg",
+    "author": "Santeri Viinamäki",
+    "license": "CC BY-SA 4.0",
+    "credit": "Own work"
+  }
+]

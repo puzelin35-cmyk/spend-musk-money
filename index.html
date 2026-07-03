@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>花光马斯克的钱</title>
+    <meta name="description" content="一个中文在线模拟器：给你约 6.76 万亿元人民币预算，从奶茶、房车、演唱会到火箭和火星基地，看看多久能花光马斯克的钱。" />
+    <meta name="keywords" content="花光马斯克的钱,马斯克财富模拟器,中文在线游戏,花钱模拟器,净值模拟器" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://puzelin35-cmyk.github.io/spend-musk-money/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="花光马斯克的钱" />
+    <meta property="og:description" content="给你约 6.76 万亿元人民币预算，从奶茶买到火星基地，看看多久能花光。" />
+    <meta property="og:url" content="https://puzelin35-cmyk.github.io/spend-musk-money/" />
+    <meta property="og:image" content="https://puzelin35-cmyk.github.io/spend-musk-money/assets/items/hero-rocket.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="stage" aria-label="花光马斯克的钱游戏">
+        <div class="hero-visual">
+          <img src="assets/items/hero-rocket.jpg" alt="火箭发射" />
+          <div class="hero-overlay" aria-hidden="true">
+            <span>预算：约 6.76 万亿元人民币</span>
+            <strong>从咖啡买到球队，再买到火星。</strong>
+          </div>
+        </div>
+
+        <div class="intro">
+          <div class="profile-chip" aria-label="马斯克资料卡">
+            <img src="assets/items/elon-musk-avatar.jpg" alt="埃隆·马斯克头像" />
+            <div>
+              <span>本局资产池</span>
+              <strong>Elon Musk 马斯克</strong>
+            </div>
+            <b>世界首富模式</b>
+          </div>
+          <h1>花光马斯克的钱</h1>
+          <p class="intro-copy">给你一笔约 6.76 万亿元人民币的天文数字预算，从奶茶外卖到房车教育，从演唱会到修地铁都能买。真正的难点不是花钱，是把它花到见底。</p>
+          <div class="actions">
+            <button class="primary" id="startGame">开始花钱</button>
+            <button class="secondary" id="resetGame">重开一局</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="reality-check" aria-label="普通人离马斯克有多远">
+        <div class="reality-head">
+          <p class="kicker">主栏目</p>
+          <h2>普通人离马斯克有多远？</h2>
+          <p>先别急着买火箭，看看普通人想攒到这笔钱，需要把好运和工时拉到什么尺度。</p>
+        </div>
+        <div class="reality-grid">
+          <article class="reality-card">
+            <span>马斯克财富折合</span>
+            <strong id="worthCompact">约 6.76 万亿元</strong>
+            <p id="worthDetail">按实时富豪榜净值折算，口径见数据说明</p>
+          </article>
+          <article class="reality-card highlight">
+            <span>如果每天中一次 500 万</span>
+            <strong id="lotteryDays">约 135.2 万天</strong>
+            <p id="lotteryYears">约 3704 年，天天中奖也要从古代中到现在。</p>
+          </article>
+          <article class="reality-card">
+            <span>如果按平均工资上班</span>
+            <strong id="salaryYears">约 9443 万年</strong>
+            <p>按 2025 年城镇私营单位年均工资 71590 元估算。</p>
+          </article>
+        </div>
+        <p class="data-note">娱乐模拟：净值、汇率和彩票奖金会波动，页面采用固定口径方便比较。</p>
+      </section>
+
+      <section class="dashboard" aria-label="游戏状态">
+        <div class="metric balance">
+          <span>剩余余额</span>
+          <strong id="balanceText">¥6,760,487,565,000</strong>
+          <div class="meter"><span id="spentMeter"></span></div>
+        </div>
+        <div class="metric">
+          <span>已花费</span>
+          <strong id="spentText">¥0</strong>
+        </div>
+        <div class="metric">
+          <span>购物数量</span>
+          <strong id="itemCount">0</strong>
+        </div>
+        <div class="metric timer">
+          <span>挑战计时</span>
+          <strong id="timerText">不限时</strong>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="购买控制">
+        <div class="control-group">
+          <label for="quantityNumber">每次购买数量</label>
+          <div class="quantity-actions" role="group" aria-label="快捷数量">
+            <button data-qty="1" class="active">1</button>
+            <button data-qty="10">10</button>
+            <button data-qty="100">100</button>
+            <button data-qty="max">最大可买</button>
+          </div>
+          <input id="quantityNumber" type="number" min="1" max="999999" value="1" />
+          <output id="quantityText" for="quantityNumber">1 件</output>
+        </div>
+        <div class="challenge" role="group" aria-label="挑战模式">
+          <button data-time="0" class="active">不限时</button>
+          <button data-time="30">30 秒</button>
+          <button data-time="60">60 秒</button>
+          <button data-time="300">300 秒</button>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div>
+          <div class="section-head shop-tools">
+            <h2>购物清单</h2>
+            <div class="filters">
+              <input id="searchInput" type="search" placeholder="搜索商品、球队、火箭" aria-label="搜索商品" />
+              <select id="categoryFilter" aria-label="筛选分类">
+                <option value="all">全部分类</option>
+                <option value="daily">日常刚需</option>
+                <option value="home">家电数码</option>
+                <option value="property">买房买车</option>
+                <option value="family">养娃养老</option>
+                <option value="mood">情绪消费</option>
+                <option value="wild">离谱撒币</option>
+              </select>
+              <select id="sortSelect" aria-label="排序">
+                <option value="default">默认排序</option>
+                <option value="priceAsc">价格从低到高</option>
+                <option value="priceDesc">价格从高到低</option>
+              </select>
+              <label class="owned-toggle">
+                <input id="ownedOnly" type="checkbox" />
+                只看已买
+              </label>
+            </div>
+          </div>
+          <div class="category-pills" id="categoryPills" aria-label="分类快捷筛选"></div>
+          <div class="shop-grid" id="shopGrid"></div>
+        </div>
+
+        <aside class="receipt-panel" aria-label="小票和成就">
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="receipt" role="tab">小票</button>
+            <button class="tab" data-tab="achievements" role="tab">成就</button>
+          </div>
+          <div id="receiptView" class="tab-view active">
+            <div class="receipt-actions">
+              <button class="secondary" id="copyReceipt">复制战绩</button>
+              <button class="secondary" id="clearCart">清空购物车</button>
+            </div>
+            <p class="copy-status" id="copyStatus" role="status"></p>
+            <div class="empty-state" id="emptyReceipt">还没买东西。先从一杯咖啡，或者一座岛开始。</div>
+            <ul id="receiptList"></ul>
+          </div>
+          <div id="achievementView" class="tab-view">
+            <ul id="achievementList"></ul>
+          </div>
+        </aside>
+      </section>
+
+      <dialog id="finishDialog">
+        <div class="dialog-body">
+          <p class="kicker">结算完成</p>
+          <h2 id="finishTitle">你花光了全部预算</h2>
+          <p id="finishCopy"></p>
+          <div class="dialog-stats">
+            <span id="finishSpent"></span>
+            <span id="finishItems"></span>
+            <span id="finishAchievements"></span>
+          </div>
+          <button class="primary" id="playAgain">再玩一次</button>
+        </div>
+      </dialog>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
