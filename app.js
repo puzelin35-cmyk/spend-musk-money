@@ -1,62 +1,57 @@
-const USD_TO_CNY = 6.78015;
-const MUSK_NET_WORTH_USD = 997_100_000_000;
-const STARTING_BALANCE = 6_760_487_565_000;
+const USD_TO_CNY = 6.789;
+const MUSK_NET_WORTH_USD = 1_053_000_000_000;
+const STARTING_BALANCE = 7_148_817_000_000;
 const LOTTERY_PRIZE = 5_000_000;
 const AVERAGE_PRIVATE_SALARY = 71_590;
 
 const categories = [
   { id: "all", label: "全部" },
-  { id: "daily", label: "日常刚需" },
-  { id: "home", label: "奢侈品" },
+  { id: "daily", label: "热门单品" },
+  { id: "home", label: "奢侈收藏" },
   { id: "property", label: "豪车豪宅" },
-  { id: "family", label: "养娃养老" },
-  { id: "mood", label: "情绪消费" },
-  { id: "wild", label: "离谱撒币" }
+  { id: "wild", label: "超级投资" }
 ];
 
 const items = [
-  { id: "coin", name: "1 元人民币硬币", price: 1, category: "daily", image: "assets/items/coin.jpg", alt: "人民币硬币", heat: "货币", note: "最后一块钱也得花明白。" },
-  { id: "milk-tea", name: "大杯珍珠奶茶", price: 18, category: "daily", image: "assets/items/milk-tea.jpg", alt: "一杯珍珠奶茶", heat: "饮品", note: "先买杯奶茶压压惊。" },
-  { id: "movie", name: "电影票 1 张", price: 60, category: "daily", image: "assets/items/movie.jpg", alt: "电影票票根", heat: "文娱票务", note: "爆米花另算，快乐也另算。" },
-  { id: "hotpot", name: "双人牛肉火锅套餐", price: 388, category: "daily", image: "assets/items/hotpot.jpg", alt: "火锅", heat: "餐饮套餐", note: "鸳鸯锅能解决一半家庭矛盾。" },
-
-  { id: "luxury-bag", name: "鳄鱼皮手工提包", price: 180_000, category: "home", image: "assets/items/luxury-bag.jpg", alt: "鳄鱼皮手工提包", heat: "皮具", note: "装得下手机，装不下价格。" },
-  { id: "mechanical-watch", name: "陀飞轮机械腕表", price: 1_200_000, category: "home", image: "assets/items/mechanical-watch.jpg", alt: "陀飞轮机械腕表", heat: "高级制表", note: "看时间只要一秒，买它要花一套首付。" },
-  { id: "diamond-ring", name: "5 克拉圆钻戒指", price: 3_500_000, category: "home", image: "assets/items/diamond-ring.jpg", alt: "五克拉圆钻戒指", heat: "珠宝", note: "求婚还没开始，预算先单膝跪地。" },
+  { id: "mcdonalds-1plus1", name: "麦当劳随心配 1+1 套餐", price: 14, category: "daily", image: "assets/items/mcdonalds-1plus1.jpg", alt: "麦当劳随心配 1+1 超值套餐", heat: "13.9 元起", note: "官网基础价 13.9 元，游戏内取整。" },
+  { id: "iphone-17-pro", name: "iPhone 17 Pro 256GB", price: 8_999, category: "daily", image: "assets/items/iphone-17-pro.jpg", alt: "橙色 iPhone 17 Pro", heat: "旗舰手机", note: "Apple 中国官网起售价。" },
+  { id: "canon-r5-ii", name: "佳能 EOS R5 Mark II 单机身", price: 26_999, category: "daily", image: "assets/items/canon-r5-ii.jpg", alt: "佳能 EOS R5 Mark II 相机", heat: "专业相机", note: "国行单机身公开售价。" },
+  { id: "luxury-bag", name: "LV Speedy Bandouliere 30 手袋", price: 15_500, category: "home", image: "assets/items/luxury-bag.jpg", alt: "LV Speedy Bandouliere 30 Monogram 手袋", heat: "经典手袋", note: "中国官网公开价。" },
+  { id: "taian-table", name: "泰安门米其林三星品鉴晚餐", price: 2_888, category: "home", image: "assets/items/taian-table.jpg", alt: "上海泰安门餐厅开放式厨房", heat: "十道式菜单", note: "上海 2026 米其林三星餐厅单人套餐。" },
+  { id: "cartier-necklace", name: "卡地亚 LOVE 双钻项链 B7219500", price: 22_200, category: "home", image: "assets/items/cartier-necklace.jpg", alt: "卡地亚 LOVE 黄金双钻项链", heat: "18K 黄金", note: "卡地亚中国官网公开价。" },
+  { id: "mechanical-watch", name: "劳力士潜航者日历型 126610LN", price: 91_200, category: "home", image: "assets/items/mechanical-watch.jpg", alt: "劳力士潜航者日历型黑色腕表", heat: "经典腕表", note: "中国官网公开价。" },
+  { id: "diamond-ring", name: "5 克拉培育钻戒", price: 95_000, category: "home", image: "assets/items/diamond-ring.jpg", alt: "五克拉培育钻戒", heat: "珠宝", note: "求婚还没开始，预算先单膝跪地。" },
+  { id: "maldives", name: "安纳塔拉吉哈瓦双人七晚水上别墅", price: 87_191, category: "home", image: "assets/items/maldives.jpg", alt: "马尔代夫安纳塔拉吉哈瓦水上泳池别墅", heat: "海岛度假", note: "按 2026 年七晚套餐及页面汇率折算。" },
+  { id: "everest", name: "尼泊尔南坡珠峰商业攀登", price: 271_560, category: "home", image: "assets/items/everest.jpg", alt: "登山者攀登珠穆朗玛峰", heat: "45 天登顶", note: "按 2026 年单人全包价 4 万美元折算。" },
   { id: "supercar", name: "兰博基尼 Centenario", price: 20_000_000, category: "home", image: "assets/items/supercar.jpg", alt: "兰博基尼 Centenario 超级跑车", heat: "超级跑车", note: "堵在晚高峰里，也比旁边贵几套房。" },
-  { id: "superyacht", name: "Azimut VESTA 游艇", price: 800_000_000, category: "home", image: "assets/items/superyacht.jpg", alt: "海面上的 Azimut VESTA 游艇", heat: "私人游艇", note: "买船只是开始，养船才是连续剧。" },
+  { id: "superyacht", name: "Azimut VESTA 27 米游艇", price: 30_000_000, category: "home", image: "assets/items/superyacht.jpg", alt: "海面上的 Azimut VESTA 27 米游艇", heat: "私人游艇", note: "买船只是开始，养船才是连续剧。" },
 
-  { id: "luxury-villa", name: "苏梅岛泳池别墅", price: 80_000_000, category: "property", image: "assets/items/luxury-villa.jpg", alt: "苏梅岛带泳池别墅", heat: "别墅", note: "房子只买一套，但泳池得比客厅大。" },
+  { id: "luxury-villa", name: "苏梅岛三卧泳池别墅", price: 5_000_000, category: "property", image: "assets/items/luxury-villa.jpg", alt: "苏梅岛三卧泳池别墅", heat: "别墅", note: "房子只买一套，但泳池得比客厅大。" },
+  { id: "mercedes-e300l", name: "奔驰 E 300 L 时尚型", price: 439_800, category: "property", image: "assets/items/mercedes-e300l.jpg", alt: "奔驰长轴距 E 级轿车官方车型图", heat: "豪华轿车", note: "2026 款改款厂商指导价。" },
   { id: "private-jet", name: "湾流 G800 私人飞机", price: 500_000_000, category: "property", image: "assets/items/private-jet.jpg", alt: "飞行中的湾流 G800 私人飞机", heat: "公务航空", note: "不用赶航班，因为航班等你。" },
 
-  { id: "nanny", name: "42 天住家月嫂服务", price: 68000, category: "family", image: "assets/items/nanny.jpg", alt: "新生儿护理", heat: "母婴服务", note: "睡眠自由的价格，写在合同里。" },
-  { id: "tutoring", name: "中小学生全年课外辅导", price: 120000, category: "family", image: "assets/items/tutoring.jpg", alt: "学生课外辅导", heat: "教育服务", note: "分数还没涨，账单先涨了。" },
-  { id: "insurance", name: "一家三口年度商业保险", price: 150000, category: "family", image: "assets/items/insurance.jpg", alt: "商业保险保单", heat: "年度保险", note: "买的时候心疼，真用上更心疼。" },
-  { id: "health-check", name: "父母双人全身体检套餐", price: 30000, category: "family", image: "assets/items/health-check.jpg", alt: "全身体检中心大厅", heat: "医疗服务", note: "这笔钱花出去，心里踏实一点。" },
-  { id: "nursing-home", name: "高端养老院单人一年", price: 180000, category: "family", image: "assets/items/nursing-home.jpg", alt: "养老院", heat: "养老服务", note: "养老不是远方，是每月扣款。" },
-
-  { id: "spring-trip", name: "四口之家春节出境游", price: 120000, category: "mood", image: "assets/items/spring-trip.jpg", alt: "全家在机场出境旅行", heat: "家庭旅行", note: "机票越贵，朋友圈越值。" },
-  { id: "wedding", name: "五星级酒店 30 桌婚宴", price: 300000, category: "mood", image: "assets/items/wedding.jpg", alt: "五星级酒店婚宴", heat: "婚庆服务", note: "一天花掉一辆车，大家还说值。" },
-
-  { id: "tour-title", name: "全国体育馆巡演总冠名", price: 500_000_000, category: "wild", image: "assets/items/tour-title.jpg", alt: "全国巡演舞台", heat: "广告冠名", note: "每张票根都写着你花过钱。" },
-  { id: "football-club", name: "中超足球俱乐部 100% 股权", price: 2_000_000_000, category: "wild", image: "assets/items/football-club.jpg", alt: "中超足球俱乐部球场", heat: "体育资产", note: "花钱容易，赢球另说。" },
-  { id: "hospital", name: "1000 床三级甲等综合医院", price: 5_000_000_000, category: "wild", image: "assets/items/hospital.jpg", alt: "三级甲等综合医院大楼", heat: "医疗基建", note: "这钱花出去，评论区会安静一点。" },
-  { id: "metro-line", name: "30 公里城市地铁线路", price: 30_000_000_000, category: "wild", image: "assets/items/metro-line.jpg", alt: "城市地铁线路", heat: "轨道交通", note: "从此房产中介多一句话术。" },
-  { id: "city-coupon", name: "100 亿元全城消费券", price: 10_000_000_000, category: "wild", image: "assets/items/city-coupon.jpg", alt: "城市消费券", heat: "城市补贴", note: "大家都说谢谢，顺便问第二轮呢。" },
-  { id: "datacenter", name: "1 吉瓦 AI 数据中心园区", price: 542_412_000_000, category: "wild", image: "assets/items/datacenter.jpg", alt: "AI 数据中心服务器机房", heat: "算力基建", note: "电费看了都想开会。" },
-  { id: "rocket", name: "大型运载火箭发射 1 次", price: 8_136_180_000, category: "wild", image: "assets/items/rocket.jpg", alt: "大型运载火箭发射", heat: "商业航天", note: "这回不是上头，是真的上天。" },
-  { id: "mars", name: "火星基地一期工程", price: 4_068_090_000_000, category: "wild", image: "assets/items/mars.jpg", alt: "火星基地一期工程概念图", heat: "太空工程", note: "地球上的钱，花到火星上。" }
+  { id: "tour-title", name: "全国体育馆巡演总冠名", price: 12_000_000, category: "wild", image: "assets/items/tour-title.jpg", alt: "全国巡演舞台", heat: "广告冠名", note: "每张票根都写着你花过钱。" },
+  { id: "rocket", name: "大型运载火箭发射 1 次", price: 300_000_000, category: "wild", image: "assets/items/rocket.jpg", alt: "大型运载火箭发射", heat: "商业航天", note: "一次完整的商业发射。" },
+  { id: "football-club", name: "中超足球俱乐部 100% 股权", price: 500_000_000, category: "wild", image: "assets/items/football-club.jpg", alt: "中超足球俱乐部球场", heat: "体育资产", note: "完整控股一家职业足球俱乐部。" },
+  { id: "hospital", name: "1000 床三级甲等综合医院", price: 1_680_000_000, category: "wild", image: "assets/items/hospital.jpg", alt: "三级甲等综合医院大楼", heat: "医疗资产", note: "按同规模公开建设投资估算。" },
+  { id: "private-island", name: "拉奈岛 97% 土地", price: 2_036_700_000, category: "wild", image: "assets/items/private-island.jpg", alt: "夏威夷拉奈岛航拍", heat: "私人岛屿", note: "参考拉里·埃里森 2012 年收购价。" },
+  { id: "bitcoin", name: "1 枚比特币", price: 420_226, category: "wild", image: "assets/items/bitcoin.jpg", alt: "金色比特币实体代币", heat: "数字资产", note: "按 2026-07-03 BTC/USD 行情及页面汇率折算。" },
+  { id: "anime-library", name: "Crunchyroll 动漫版权库", price: 7_977_075_000, category: "wild", image: "assets/items/anime-library.jpg", alt: "Crunchyroll 动漫片库界面", heat: "动漫版权", note: "参考索尼收购 Crunchyroll 的交易价。" },
+  { id: "metro-line", name: "30 公里城市地铁线路", price: 21_200_000_000, category: "wild", image: "assets/items/metro-line.jpg", alt: "城市地铁线路", heat: "轨道交通", note: "按国内同里程公开项目投资估算。" },
+  { id: "datacenter", name: "1 吉瓦 AI 数据中心园区", price: 50_000_000_000, category: "wild", image: "assets/items/datacenter.jpg", alt: "AI 数据中心服务器机房", heat: "算力资产", note: "包含基础设施与核心算力设备。" },
+  { id: "film-studio", name: "米高梅电影公司整体收购", price: 57_367_050_000, category: "wild", image: "assets/items/film-studio.jpg", alt: "米高梅电影制片厂入口", heat: "影视公司", note: "参考亚马逊 84.5 亿美元收购价。" },
+  { id: "tech-company", name: "X（原 Twitter）整体收购", price: 298_716_000_000, category: "wild", image: "assets/items/tech-company.jpg", alt: "X 原旧金山总部大楼", heat: "科技公司", note: "参考马斯克 440 亿美元收购价。" }
 ];
 
 const achievements = [
   { id: "first", title: "第一笔消费", copy: "买下任意一件东西。", test: s => s.spent > 0 },
-  { id: "milkTea", title: "奶茶自由", copy: "买过奶茶，快乐先到账。", test: s => (s.cart["milk-tea"] || 0) > 0 },
+  { id: "luxury", title: "奢侈品入场", copy: "买下一件奢侈收藏。", test: s => ownedItems(s).some(item => item.category === "home") },
   { id: "million", title: "百万入门", copy: "累计花费超过 100 万元。", test: s => s.spent >= 1_000_000 },
   { id: "landlord", title: "别墅业主", copy: "买下一座苏梅岛泳池别墅。", test: s => (s.cart["luxury-villa"] || 0) > 0 },
-  { id: "familyBill", title: "养娃账单", copy: "买过任意养娃养老项目。", test: s => ownedItems(s).some(item => item.category === "family") },
-  { id: "couponRain", title: "全城撒券", copy: "发过一轮全城消费券。", test: s => (s.cart["city-coupon"] || 0) > 0 },
+  { id: "mediaEmpire", title: "内容帝国", copy: "同时买下电影公司和动漫版权库。", test: s => (s.cart["film-studio"] || 0) > 0 && (s.cart["anime-library"] || 0) > 0 },
+  { id: "summit", title: "站上世界之巅", copy: "买下一次珠峰商业攀登。", test: s => (s.cart.everest || 0) > 0 },
   { id: "metro", title: "修到地铁了", copy: "修一条地铁线。", test: s => (s.cart["metro-line"] || 0) > 0 },
-  { id: "variety", title: "横跨六类", copy: "六个频道都买过至少一次。", test: s => new Set(ownedItems(s).map(item => item.category)).size === 6 },
+  { id: "variety", title: "资产配置", copy: "四个频道都买过至少一次。", test: s => new Set(ownedItems(s).map(item => item.category)).size === 4 },
   { id: "finish", title: "真的花光了", copy: "余额归零。", test: s => s.balance === 0 }
 ];
 
