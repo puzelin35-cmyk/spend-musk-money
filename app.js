@@ -1,464 +1,380 @@
-const USD_TO_CNY = 6.789;
-const MUSK_NET_WORTH_USD = 1_053_000_000_000;
-const STARTING_BALANCE = 7_148_817_000_000;
-const LOTTERY_PRIZE = 5_000_000;
-const AVERAGE_PRIVATE_SALARY = 71_590;
-
-const categories = [
-  { id: "all", label: "全部" },
-  { id: "daily", label: "热门单品" },
-  { id: "home", label: "奢侈收藏" },
-  { id: "property", label: "豪车豪宅" },
-  { id: "wild", label: "超级投资" }
-];
-
-const items = [
-  { id: "mcdonalds-1plus1", name: "麦当劳随心配 1+1 套餐", price: 14, category: "daily", image: "assets/items/mcdonalds-1plus1.jpg", alt: "麦当劳随心配 1+1 超值套餐", heat: "13.9 元起", note: "官网基础价 13.9 元，游戏内取整。" },
-  { id: "iphone-17-pro", name: "iPhone 17 Pro 256GB", price: 8_999, category: "daily", image: "assets/items/iphone-17-pro.jpg", alt: "橙色 iPhone 17 Pro", heat: "旗舰手机", note: "Apple 中国官网起售价。" },
-  { id: "canon-r5-ii", name: "佳能 EOS R5 Mark II 单机身", price: 26_999, category: "daily", image: "assets/items/canon-r5-ii.jpg", alt: "佳能 EOS R5 Mark II 相机", heat: "专业相机", note: "国行单机身公开售价。" },
-  { id: "luxury-bag", name: "LV Speedy Bandouliere 30 手袋", price: 15_500, category: "home", image: "assets/items/luxury-bag.jpg", alt: "LV Speedy Bandouliere 30 Monogram 手袋", heat: "经典手袋", note: "中国官网公开价。" },
-  { id: "taian-table", name: "泰安门米其林三星品鉴晚餐", price: 2_888, category: "home", image: "assets/items/taian-table.jpg", alt: "上海泰安门餐厅开放式厨房", heat: "十道式菜单", note: "上海 2026 米其林三星餐厅单人套餐。" },
-  { id: "cartier-necklace", name: "卡地亚 LOVE 双钻项链 B7219500", price: 22_200, category: "home", image: "assets/items/cartier-necklace.jpg", alt: "卡地亚 LOVE 黄金双钻项链", heat: "18K 黄金", note: "卡地亚中国官网公开价。" },
-  { id: "mechanical-watch", name: "劳力士潜航者日历型 126610LN", price: 91_200, category: "home", image: "assets/items/mechanical-watch.jpg", alt: "劳力士潜航者日历型黑色腕表", heat: "经典腕表", note: "中国官网公开价。" },
-  { id: "diamond-ring", name: "5 克拉培育钻戒", price: 95_000, category: "home", image: "assets/items/diamond-ring.jpg", alt: "五克拉培育钻戒", heat: "珠宝", note: "求婚还没开始，预算先单膝跪地。" },
-  { id: "maldives", name: "安纳塔拉吉哈瓦双人七晚水上别墅", price: 87_191, category: "home", image: "assets/items/maldives.jpg", alt: "马尔代夫安纳塔拉吉哈瓦水上泳池别墅", heat: "海岛度假", note: "按 2026 年七晚套餐及页面汇率折算。" },
-  { id: "everest", name: "尼泊尔南坡珠峰商业攀登", price: 271_560, category: "home", image: "assets/items/everest.jpg", alt: "登山者攀登珠穆朗玛峰", heat: "45 天登顶", note: "按 2026 年单人全包价 4 万美元折算。" },
-  { id: "supercar", name: "兰博基尼 Centenario", price: 20_000_000, category: "home", image: "assets/items/supercar.jpg", alt: "兰博基尼 Centenario 超级跑车", heat: "超级跑车", note: "堵在晚高峰里，也比旁边贵几套房。" },
-  { id: "superyacht", name: "Azimut VESTA 27 米游艇", price: 30_000_000, category: "home", image: "assets/items/superyacht.jpg", alt: "海面上的 Azimut VESTA 27 米游艇", heat: "私人游艇", note: "买船只是开始，养船才是连续剧。" },
-
-  { id: "luxury-villa", name: "苏梅岛三卧泳池别墅", price: 5_000_000, category: "property", image: "assets/items/luxury-villa.jpg", alt: "苏梅岛三卧泳池别墅", heat: "别墅", note: "房子只买一套，但泳池得比客厅大。" },
-  { id: "mercedes-e300l", name: "奔驰 E 300 L 时尚型", price: 439_800, category: "property", image: "assets/items/mercedes-e300l.jpg", alt: "奔驰长轴距 E 级轿车官方车型图", heat: "豪华轿车", note: "2026 款改款厂商指导价。" },
-  { id: "private-jet", name: "湾流 G800 私人飞机", price: 500_000_000, category: "property", image: "assets/items/private-jet.jpg", alt: "飞行中的湾流 G800 私人飞机", heat: "公务航空", note: "不用赶航班，因为航班等你。" },
-
-  { id: "tour-title", name: "全国体育馆巡演总冠名", price: 12_000_000, category: "wild", image: "assets/items/tour-title.jpg", alt: "全国巡演舞台", heat: "广告冠名", note: "每张票根都写着你花过钱。" },
-  { id: "rocket", name: "大型运载火箭发射 1 次", price: 300_000_000, category: "wild", image: "assets/items/rocket.jpg", alt: "大型运载火箭发射", heat: "商业航天", note: "一次完整的商业发射。" },
-  { id: "football-club", name: "中超足球俱乐部 100% 股权", price: 500_000_000, category: "wild", image: "assets/items/football-club.jpg", alt: "中超足球俱乐部球场", heat: "体育资产", note: "完整控股一家职业足球俱乐部。" },
-  { id: "hospital", name: "1000 床三级甲等综合医院", price: 1_680_000_000, category: "wild", image: "assets/items/hospital.jpg", alt: "三级甲等综合医院大楼", heat: "医疗资产", note: "按同规模公开建设投资估算。" },
-  { id: "private-island", name: "拉奈岛 97% 土地", price: 2_036_700_000, category: "wild", image: "assets/items/private-island.jpg", alt: "夏威夷拉奈岛航拍", heat: "私人岛屿", note: "参考拉里·埃里森 2012 年收购价。" },
-  { id: "bitcoin", name: "1 枚比特币", price: 420_226, category: "wild", image: "assets/items/bitcoin.jpg", alt: "金色比特币实体代币", heat: "数字资产", note: "按 2026-07-03 BTC/USD 行情及页面汇率折算。" },
-  { id: "anime-library", name: "Crunchyroll 动漫版权库", price: 7_977_075_000, category: "wild", image: "assets/items/anime-library.jpg", alt: "Crunchyroll 动漫片库界面", heat: "动漫版权", note: "参考索尼收购 Crunchyroll 的交易价。" },
-  { id: "metro-line", name: "30 公里城市地铁线路", price: 21_200_000_000, category: "wild", image: "assets/items/metro-line.jpg", alt: "城市地铁线路", heat: "轨道交通", note: "按国内同里程公开项目投资估算。" },
-  { id: "datacenter", name: "1 吉瓦 AI 数据中心园区", price: 50_000_000_000, category: "wild", image: "assets/items/datacenter.jpg", alt: "AI 数据中心服务器机房", heat: "算力资产", note: "包含基础设施与核心算力设备。" },
-  { id: "film-studio", name: "米高梅电影公司整体收购", price: 57_367_050_000, category: "wild", image: "assets/items/film-studio.jpg", alt: "米高梅电影制片厂入口", heat: "影视公司", note: "参考亚马逊 84.5 亿美元收购价。" },
-  { id: "tech-company", name: "X（原 Twitter）整体收购", price: 298_716_000_000, category: "wild", image: "assets/items/tech-company.jpg", alt: "X 原旧金山总部大楼", heat: "科技公司", note: "参考马斯克 440 亿美元收购价。" }
-];
-
-const achievements = [
-  { id: "first", title: "第一笔消费", copy: "买下任意一件东西。", test: s => s.spent > 0 },
-  { id: "luxury", title: "奢侈品入场", copy: "买下一件奢侈收藏。", test: s => ownedItems(s).some(item => item.category === "home") },
-  { id: "million", title: "百万入门", copy: "累计花费超过 100 万元。", test: s => s.spent >= 1_000_000 },
-  { id: "landlord", title: "别墅业主", copy: "买下一座苏梅岛泳池别墅。", test: s => (s.cart["luxury-villa"] || 0) > 0 },
-  { id: "mediaEmpire", title: "内容帝国", copy: "同时买下电影公司和动漫版权库。", test: s => (s.cart["film-studio"] || 0) > 0 && (s.cart["anime-library"] || 0) > 0 },
-  { id: "summit", title: "站上世界之巅", copy: "买下一次珠峰商业攀登。", test: s => (s.cart.everest || 0) > 0 },
-  { id: "metro", title: "修到地铁了", copy: "修一条地铁线。", test: s => (s.cart["metro-line"] || 0) > 0 },
-  { id: "variety", title: "资产配置", copy: "四个频道都买过至少一次。", test: s => new Set(ownedItems(s).map(item => item.category)).size === 4 },
-  { id: "finish", title: "真的花光了", copy: "余额归零。", test: s => s.balance === 0 }
-];
-
-const state = {
-  balance: STARTING_BALANCE,
-  spent: 0,
-  biggestPurchase: 0,
-  cart: {},
-  timeLimit: 0,
-  timeLeft: 0,
-  timerId: null,
-  started: false,
-  category: "all",
-  sort: "priceAsc",
-  search: "",
-  ownedOnly: false,
-  quantityMode: "1",
-  quantity: 1,
-  clearPending: false,
-  lastAction: "还没开买，先挑一个顺眼的。"
-};
-
-const money = new Intl.NumberFormat("zh-CN", { style: "currency", currency: "CNY", maximumFractionDigits: 0 });
-const integer = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 0 });
+const CURRENCY = new Intl.NumberFormat("zh-CN", { style: "currency", currency: "CNY", maximumFractionDigits: 0 });
+const INTEGER = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 0 });
 const el = id => document.getElementById(id);
 
-function formatMoney(value) {
-  return money.format(value);
+const SOURCES = {
+  consumption: { title: "2025年居民收入和消费支出情况", org: "国家统计局", year: 2025, url: "https://www.stats.gov.cn/sj/zxfb/202601/t20260119_1962321.html", note: "全国居民人均消费支出29,476元，其中食品烟酒8,631元、交通通信4,306元。" },
+  wages: { title: "2025年城镇单位就业人员年平均工资情况", org: "国家统计局", year: 2025, url: "https://www.stats.gov.cn/sj/zxfb/202605/t20260515_1963707.html", note: "用于收入缺失时的时间价值校验；本页优先采用用户输入的税后月收入。" },
+  mortgage: { title: "关于下调个人住房公积金贷款利率的通知", org: "中国人民银行 / 中国政府网", year: 2025, url: "https://app.www.gov.cn/govdata/gov/202505/07/528461/article.html", note: "5年以上首套公积金贷款利率2.6%；本页商业组合场景使用3.4%的保守假设。" },
+  scenario: { title: "一生账单场景参数", org: "产品估算", year: 2025, url: "DATA_SOURCES.md", note: "城市房价、租金、物业、托育和护理等使用透明的代表性场景值，不宣称为城市官方均价。" }
+};
+
+const CITIES = {
+  tier1: { name: "一线城市", foodAnnual: 13200, transitFare: 7, rentMonthly: 5200, homePrice: 3000000, propertyMonthly: 320, education: 1.35, medical: 1.25, disposable: 85000 },
+  new1: { name: "新一线城市", foodAnnual: 10800, transitFare: 5, rentMonthly: 2900, homePrice: 1650000, propertyMonthly: 230, education: 1.08, medical: 1.05, disposable: 62000 },
+  county: { name: "小城市 / 县城", foodAnnual: 8600, transitFare: 3, rentMonthly: 1500, homePrice: 760000, propertyMonthly: 140, education: .82, medical: .88, disposable: 43000 }
+};
+
+const state = { profile: null, stage: 0, selections: [], pending: null };
+
+function bill(input) {
+  const unitPrice = input.unitPrice || 0;
+  const frequency = input.frequency || 0;
+  const years = input.years || 0;
+  return {
+    id: input.id,
+    stage: input.stage,
+    category: input.category,
+    label: input.label,
+    unitPrice,
+    frequency,
+    years,
+    cashCost: input.cashCost ?? Math.round(unitPrice * frequency * years),
+    timeHours: input.timeHours || 0,
+    opportunityCost: input.opportunityCost || 0,
+    formula: input.formula || `${formatMoney(unitPrice)} × ${frequency}次/年 × ${years}年`,
+    assumptions: input.assumptions || "按2025年当前价格估算，不计未来通胀。",
+    sourceIds: input.sourceIds || ["scenario"],
+    small: Boolean(input.small),
+    forSelf: Boolean(input.forSelf)
+  };
 }
 
-function formatChineseAmount(value) {
-  if (value >= 1_0000_0000_0000) return `约 ${(value / 1_0000_0000_0000).toFixed(2)} 万亿元`;
-  if (value >= 1_0000_0000) return `约 ${(value / 1_0000_0000).toFixed(1)} 亿元`;
-  if (value >= 1_0000) return `约 ${(value / 1_0000).toFixed(1)} 万元`;
-  return `${integer.format(value)} 元`;
+function mortgagePayment(principal, annualRate, years) {
+  const r = annualRate / 12;
+  const n = years * 12;
+  return principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
 }
 
-function getCategoryLabel(id) {
-  return categories.find(category => category.id === id)?.label || "本局推荐";
+function hourlyValue() {
+  const income = state.profile?.income || (CITIES[state.profile?.city || "new1"].disposable / 12);
+  return income / 21.75 / 8;
 }
 
-function getUnlockedAchievementIds(snapshot = state) {
-  return new Set(achievements.filter(achievement => achievement.test(snapshot)).map(achievement => achievement.id));
+function childhood(level) {
+  const c = CITIES[state.profile.city];
+  const factor = level === "basic" ? .82 : level === "enriched" ? 1 : 1.45;
+  return [
+    bill({ id: "child-food", stage: 0, category: "成长", label: "0—18岁饮食", unitPrice: Math.round(c.foodAnnual * .72 * factor), frequency: 1, years: 18, formula: `${formatMoney(Math.round(c.foodAnnual * .72 * factor))}/年 × 18年`, sourceIds: ["consumption"], small: true }),
+    bill({ id: "child-education", stage: 0, category: "成长", label: "教育与兴趣培养", unitPrice: Math.round(7200 * c.education * factor), frequency: 1, years: 15, formula: `${formatMoney(Math.round(7200 * c.education * factor))}/年 × 15年`, sourceIds: ["scenario"] }),
+    bill({ id: "child-medical", stage: 0, category: "成长", label: "衣物、医疗与用品", unitPrice: Math.round(5200 * c.medical * factor), frequency: 1, years: 18, formula: `${formatMoney(Math.round(5200 * c.medical * factor))}/年 × 18年`, sourceIds: ["consumption"] }),
+    bill({ id: "care-time", stage: 0, category: "成长", label: "家庭无偿照护时间", timeHours: Math.round(1.2 * 365 * 12 * factor), formula: `1.2小时/天 × 365天 × 12年`, assumptions: "只计算日常额外照护时间，不包含睡眠和共同生活。", sourceIds: ["scenario"] })
+  ];
 }
 
-function formatPercent(value) {
-  if (value === 0) return "0%";
-  if (value < 0.01) return "<0.01%";
-  return `${value.toFixed(value < 1 ? 2 : 1)}%`;
+function education(level) {
+  const c = CITIES[state.profile.city];
+  const cfg = {
+    vocational: { years: 3, tuition: 6500, living: 15000, delay: 0, label: "职业教育" },
+    bachelor: { years: 4, tuition: 6000, living: 18000, delay: 1, label: "本科" },
+    master: { years: 7, tuition: 8500, living: 21000, delay: 4, label: "研究生" }
+  }[level];
+  const delayedIncome = Math.round(state.profile.income * 12 * cfg.delay * .55);
+  return [
+    bill({ id: "tuition", stage: 1, category: "教育", label: `${cfg.label}学费`, unitPrice: Math.round(cfg.tuition * c.education), frequency: 1, years: cfg.years, formula: `${formatMoney(Math.round(cfg.tuition * c.education))}/年 × ${cfg.years}年`, sourceIds: ["scenario"] }),
+    bill({ id: "campus-living", stage: 1, category: "教育", label: "在校生活与住宿", unitPrice: Math.round(cfg.living * (.8 + c.education * .2)), frequency: 1, years: cfg.years, formula: `${formatMoney(Math.round(cfg.living * (.8 + c.education * .2)))}/年 × ${cfg.years}年`, sourceIds: ["consumption", "scenario"], small: true }),
+    bill({ id: "delayed-work", stage: 1, category: "教育", label: "延迟就业的收入", opportunityCost: delayedIncome, formula: `${formatMoney(state.profile.income)}/月 × 12月 × ${cfg.delay}年 × 55%`, assumptions: "相对3年职业教育路径估算；55%用于扣除在职生活支出差异。", sourceIds: ["wages"] })
+  ];
 }
 
-function flashElement(element, className) {
-  if (!element) return;
-  element.classList.remove(className);
-  window.requestAnimationFrame(() => {
-    element.classList.add(className);
-    window.setTimeout(() => element.classList.remove(className), 260);
-  });
+function work(style) {
+  const c = CITIES[state.profile.city];
+  const cfg = {
+    frugal: { food: .82, takeaway: 40, drink: 35, overtime: 2 },
+    balanced: { food: 1, takeaway: 100, drink: 90, overtime: 4 },
+    convenient: { food: 1.18, takeaway: 180, drink: 150, overtime: 7 }
+  }[style];
+  const commuteHours = state.profile.commute * 2 * 250 * 35 / 60;
+  return [
+    bill({ id: "adult-food", stage: 2, category: "日常", label: "工作期日常饮食", unitPrice: Math.round(c.foodAnnual * cfg.food), frequency: 1, years: 35, formula: `${formatMoney(Math.round(c.foodAnnual * cfg.food))}/年 × 35年`, sourceIds: ["consumption"], small: true }),
+    bill({ id: "takeaway-premium", stage: 2, category: "日常", label: "外卖便利溢价", unitPrice: 16, frequency: cfg.takeaway, years: 35, formula: `比自炊多16元/次 × ${cfg.takeaway}次/年 × 35年`, sourceIds: ["scenario"], small: true }),
+    bill({ id: "drinks", stage: 2, category: "日常", label: "咖啡、奶茶与随手买", unitPrice: 22, frequency: cfg.drink, years: 35, formula: `22元/次 × ${cfg.drink}次/年 × 35年`, sourceIds: ["scenario"], small: true, forSelf: true }),
+    bill({ id: "commute-fare", stage: 2, category: "通勤", label: "上下班交通费", unitPrice: c.transitFare * 2, frequency: 250, years: 35, formula: `${formatMoney(c.transitFare)} × 往返2次 × 250天 × 35年`, sourceIds: ["consumption", "scenario"], small: true }),
+    bill({ id: "commute-time", stage: 2, category: "通勤", label: "通勤占用时间", timeHours: Math.round(commuteHours), formula: `${state.profile.commute}分钟 × 往返2次 × 250天 × 35年`, assumptions: `按你的税后收入折算为约${formatMoney(hourlyValue())}/小时。`, sourceIds: ["wages"] }),
+    bill({ id: "overtime", stage: 2, category: "工作", label: "未补偿的额外工作", timeHours: cfg.overtime * 48 * 30, formula: `${cfg.overtime}小时/周 × 48周 × 30年`, assumptions: "仅用于显示个人时间占用，不推断劳动关系或加班补偿。", sourceIds: ["scenario"] })
+  ];
 }
 
-function renderRealityCheck() {
-  const lotteryDays = STARTING_BALANCE / LOTTERY_PRIZE;
-  const lotteryYears = lotteryDays / 365;
-  const salaryYears = STARTING_BALANCE / AVERAGE_PRIVATE_SALARY;
-  el("worthCompact").textContent = `约${(STARTING_BALANCE / 1_0000_0000_0000).toFixed(2)}万亿元`;
-  el("worthDetail").textContent = `按实时富豪榜净值折算，口径见数据说明`;
-  el("lotteryDays").textContent = `约${(lotteryDays / 10000).toFixed(1)}万天`;
-  el("lotteryYears").textContent = `约 ${integer.format(Math.round(lotteryYears))} 年，天天送中大奖也要从古代中到现在。`;
-  el("salaryYears").textContent = `约${(salaryYears / 10000).toFixed(0)}万年`;
+function housing(type) {
+  const c = CITIES[state.profile.city];
+  if (type === "rent") return [
+    bill({ id: "rent", stage: 3, category: "住房", label: "长期租金", unitPrice: c.rentMonthly, frequency: 12, years: 35, formula: `${formatMoney(c.rentMonthly)}/月 × 12月 × 35年`, sourceIds: ["scenario"] }),
+    bill({ id: "moving", stage: 3, category: "住房", label: "搬家、中介与更新", unitPrice: 6500, frequency: 1 / 3, years: 35, formula: `每3年约6,500元 × 35年`, sourceIds: ["scenario"], small: true })
+  ];
+  if (type === "family") return [
+    bill({ id: "family-contribution", stage: 3, category: "住房", label: "家庭居住分担", unitPrice: Math.round(c.rentMonthly * .32), frequency: 12, years: 25, formula: `${formatMoney(Math.round(c.rentMonthly * .32))}/月 × 12月 × 25年`, sourceIds: ["scenario"] }),
+    bill({ id: "family-renovation", stage: 3, category: "住房", label: "翻新与家电更新", unitPrice: 70000, frequency: 2, years: 1, formula: `约70,000元 × 2次`, sourceIds: ["scenario"] })
+  ];
+  const price = c.homePrice;
+  const down = price * .3;
+  const principal = price * .7;
+  const monthly = mortgagePayment(principal, .034, 30);
+  const interest = monthly * 360 - principal;
+  const opportunity = down * (Math.pow(1.03, 30) - 1);
+  return [
+    bill({ id: "home-price", stage: 3, category: "住房", label: "房屋成交价", cashCost: price, formula: `代表性住房场景价`, sourceIds: ["scenario"] }),
+    bill({ id: "mortgage-interest", stage: 3, category: "住房", label: "30年贷款利息", cashCost: Math.round(interest), formula: `${formatMoney(principal)}贷款本金，年利率3.4%，等额本息360期`, assumptions: `月供约${formatMoney(monthly)}；利率为商业组合场景假设。`, sourceIds: ["mortgage", "scenario"] }),
+    bill({ id: "renovation", stage: 3, category: "住房", label: "装修与家电", cashCost: Math.round(price * .08), formula: `房屋总价 × 8%`, sourceIds: ["scenario"] }),
+    bill({ id: "property", stage: 3, category: "住房", label: "物业费", unitPrice: c.propertyMonthly, frequency: 12, years: 30, formula: `${formatMoney(c.propertyMonthly)}/月 × 12月 × 30年`, sourceIds: ["scenario"], small: true }),
+    bill({ id: "maintenance", stage: 3, category: "住房", label: "维修与更新", cashCost: Math.round(price * .06), formula: `房屋总价 × 6%`, sourceIds: ["scenario"] }),
+    bill({ id: "down-opportunity", stage: 3, category: "住房", label: "首付占用的机会成本", opportunityCost: Math.round(opportunity), formula: `${formatMoney(down)}首付 × 3%年化复利30年产生的增量`, assumptions: "这是资金占用的机会成本，不是实际付款，也不与房价重复。", sourceIds: ["scenario"] })
+  ];
 }
 
-function ownedItems(snapshot = state) {
-  return Object.keys(snapshot.cart)
-    .map(id => items.find(item => item.id === id))
-    .filter(Boolean);
+function family(type) {
+  const c = CITIES[state.profile.city];
+  if (type === "single") return [
+    bill({ id: "social", stage: 4, category: "家庭", label: "社交、探亲与独居增量", unitPrice: 5200, frequency: 1, years: 25, formula: `5,200元/年 × 25年`, sourceIds: ["scenario"], forSelf: true })
+  ];
+  if (type === "couple") return [
+    bill({ id: "wedding", stage: 4, category: "家庭", label: "婚礼与共同安家", cashCost: Math.round(110000 * c.education), formula: `基础场景110,000元 × 城市系数${c.education}`, sourceIds: ["scenario"] }),
+    bill({ id: "couple-life", stage: 4, category: "家庭", label: "纪念日、探亲与共同体验", unitPrice: 7000, frequency: 1, years: 25, formula: `7,000元/年 × 25年`, sourceIds: ["scenario"], small: true, forSelf: true })
+  ];
+  const careerBreak = state.profile.income * 12 * 1.5 * .7;
+  return [
+    bill({ id: "birth", stage: 4, category: "育儿", label: "孕产与婴幼儿用品", cashCost: Math.round(65000 * c.medical), formula: `基础场景65,000元 × 医疗系数${c.medical}`, sourceIds: ["scenario"] }),
+    bill({ id: "child-living", stage: 4, category: "育儿", label: "孩子饮食、衣物与医疗", unitPrice: Math.round(12500 * c.education), frequency: 1, years: 18, formula: `${formatMoney(Math.round(12500 * c.education))}/年 × 18年`, sourceIds: ["consumption", "scenario"], small: true }),
+    bill({ id: "child-school", stage: 4, category: "育儿", label: "托育、教育与兴趣", unitPrice: Math.round(19000 * c.education), frequency: 1, years: 18, formula: `${formatMoney(Math.round(19000 * c.education))}/年 × 18年`, sourceIds: ["scenario"] }),
+    bill({ id: "child-space", stage: 4, category: "育儿", label: "住房空间增量", unitPrice: Math.round(c.rentMonthly * .23), frequency: 12, years: 18, formula: `${formatMoney(Math.round(c.rentMonthly * .23))}/月 × 12月 × 18年`, sourceIds: ["scenario"] }),
+    bill({ id: "child-care-time", stage: 4, category: "育儿", label: "陪伴与接送时间", timeHours: 2 * 365 * 12, formula: `平均2小时/天 × 365天 × 12年`, sourceIds: ["scenario"] }),
+    bill({ id: "career-break", stage: 4, category: "育儿", label: "家庭职业中断", opportunityCost: Math.round(careerBreak), formula: `${formatMoney(state.profile.income)}/月 × 12月 × 1.5年 × 70%`, assumptions: "不预设由哪位家庭成员承担，仅表达家庭层面的收入影响。", sourceIds: ["wages", "scenario"] })
+  ];
 }
 
-function getQuantity(item) {
-  if (state.quantityMode === "max") return Math.floor(state.balance / item.price);
-  return Math.max(1, Number(state.quantity) || 1);
+function midlife(type) {
+  const c = CITIES[state.profile.city];
+  const cfg = { shared: { nursing: 12000, trips: 8, days: 8 }, personal: { nursing: 6000, trips: 12, days: 28 }, professional: { nursing: 36000, trips: 5, days: 4 } }[type];
+  const leaveCost = state.profile.income / 21.75 * cfg.days * 8;
+  return [
+    bill({ id: "parent-medical", stage: 5, category: "照护", label: "父母医疗与康复分担", unitPrice: Math.round(19000 * c.medical), frequency: 1, years: 12, formula: `${formatMoney(Math.round(19000 * c.medical))}/年 × 12年`, sourceIds: ["consumption", "scenario"] }),
+    bill({ id: "nursing", stage: 5, category: "照护", label: "护工与照护服务", unitPrice: cfg.nursing, frequency: 1, years: 8, formula: `${formatMoney(cfg.nursing)}/年 × 8年`, sourceIds: ["scenario"] }),
+    bill({ id: "family-trips", stage: 5, category: "照护", label: "异地往返与临时支出", unitPrice: 900, frequency: cfg.trips, years: 12, formula: `900元/次 × ${cfg.trips}次/年 × 12年`, sourceIds: ["scenario"], small: true }),
+    bill({ id: "care-leave", stage: 5, category: "照护", label: "请假与工作中断", opportunityCost: Math.round(leaveCost), formula: `税后日收入 × ${cfg.days}天/年 × 8年`, sourceIds: ["wages", "scenario"] }),
+    bill({ id: "care-hours", stage: 5, category: "照护", label: "陪诊与日常照护时间", timeHours: cfg.days * 8 * 8, formula: `${cfg.days}天/年 × 8小时 × 8年`, sourceIds: ["scenario"] })
+  ];
 }
 
-function filteredItems() {
-  let shown = items.slice();
-  if (state.category !== "all") shown = shown.filter(item => item.category === state.category);
-  if (state.search.trim()) {
-    const term = state.search.trim().toLowerCase();
-    shown = shown.filter(item => `${item.name} ${item.heat} ${item.note} ${item.rankLabel || ""} ${getCategoryLabel(item.category)}`.toLowerCase().includes(term));
-  }
-  if (state.ownedOnly) shown = shown.filter(item => (state.cart[item.id] || 0) > 0);
-  if (state.sort === "priceAsc") shown.sort((a, b) => a.price - b.price);
-  if (state.sort === "priceDesc") shown.sort((a, b) => b.price - a.price);
-  return shown;
+function retirement(type) {
+  const c = CITIES[state.profile.city];
+  const cfg = { basic: { living: .78, medical: .8, care: 0, self: 3500 }, community: { living: 1, medical: 1, care: 18000, self: 7000 }, quality: { living: 1.2, medical: 1.3, care: 36000, self: 16000 } }[type];
+  return [
+    bill({ id: "retire-living", stage: 6, category: "养老", label: "退休后日常生活", unitPrice: Math.round(c.foodAnnual * 1.8 * cfg.living), frequency: 1, years: 20, formula: `${formatMoney(Math.round(c.foodAnnual * 1.8 * cfg.living))}/年 × 20年`, sourceIds: ["consumption"], small: true }),
+    bill({ id: "retire-medical", stage: 6, category: "养老", label: "医疗与康复自付", unitPrice: Math.round(9000 * c.medical * cfg.medical), frequency: 1, years: 20, formula: `${formatMoney(Math.round(9000 * c.medical * cfg.medical))}/年 × 20年`, sourceIds: ["consumption", "scenario"] }),
+    bill({ id: "retire-care", stage: 6, category: "养老", label: "长期护理与适老服务", unitPrice: cfg.care, frequency: 1, years: 10, formula: `${formatMoney(cfg.care)}/年 × 10年`, sourceIds: ["scenario"] }),
+    bill({ id: "retire-self", stage: 6, category: "养老", label: "兴趣、旅行与自己的生活", unitPrice: cfg.self, frequency: 1, years: 20, formula: `${formatMoney(cfg.self)}/年 × 20年`, sourceIds: ["scenario"], forSelf: true })
+  ];
 }
 
-function renderPills() {
-  el("categoryPills").innerHTML = categories.map(category => `
-    <button type="button" class="${state.category === category.id ? "active" : ""}" data-category="${category.id}">
-      ${category.label}
-    </button>
-  `).join("");
+const STAGES = [
+  { age: "0—18岁", title: "你会花钱以前，家里已经替你结账18年", intro: "童年支出不是你的消费，却是这段人生真实发生过的成本。", options: [{ id: "basic", label: "基础成长", desc: "公立教育，开支量力而行" }, { id: "enriched", label: "丰富成长", desc: "加入兴趣培养与家庭旅行" }, { id: "intensive", label: "高投入成长", desc: "更高教育与生活投入" }], build: childhood },
+  { age: "18—25岁", title: "学历账单里，最贵的一行可能不是学费", intro: "多读几年书意味着更多投入，也意味着更晚进入职场。两者必须分开看。", options: [{ id: "vocational", label: "职业教育", desc: "三年后较早进入职场" }, { id: "bachelor", label: "本科", desc: "四年教育与生活投入" }, { id: "master", label: "研究生", desc: "更长教育周期与机会成本" }], build: education },
+  { age: "23—60岁", title: "真正吃掉收入的，常常是每天都觉得不贵", intro: "工作餐、外卖、饮品、交通费都不吓人，直到把35年放在同一张账单上。", options: [{ id: "frugal", label: "克制生活", desc: "较少便利消费，工作边界清楚" }, { id: "balanced", label: "平衡生活", desc: "正常外卖、饮品和加班频率" }, { id: "convenient", label: "便利优先", desc: "用钱换时间，也接受更长工作时长" }], build: work },
+  { age: "28—65岁", title: "住房价格只是第一行，完整账单在后面", intro: "租金、利息、物业和维修都不是隐藏费用，只是我们很少把它们放在一起。", profileKey: "housing", options: [{ id: "rent", label: "长期租房", desc: "保持流动性，持续支付租金" }, { id: "buy", label: "购买住房", desc: "本金、利息与长期维护" }, { id: "family", label: "与家人同住", desc: "分担居住成本与家庭更新" }], build: housing },
+  { age: "28—50岁", title: "家庭没有统一价格，但每个选择都有账单", intro: "这里不判断哪条路更好，只把现金、时间和职业影响分别摊开。", profileKey: "family", options: [{ id: "single", label: "保持单身", desc: "独自承担生活，也保留个人选择" }, { id: "couple", label: "两人生活", desc: "共同安家与共享体验" }, { id: "child", label: "计划育儿", desc: "养育、教育、空间和陪伴" }], build: family },
+  { age: "40—58岁", title: "中年最难的不是一笔大钱，而是几张账单同时到来", intro: "父母医疗、照护、往返与请假，常常发生在房贷和教育支出尚未结束时。", options: [{ id: "shared", label: "家人共同承担", desc: "现金和时间相对均衡" }, { id: "personal", label: "亲自多陪伴", desc: "降低服务费用，投入更多时间" }, { id: "professional", label: "专业照护", desc: "增加现金支出，保护工作连续性" }], build: midlife },
+  { age: "60—82岁", title: "退休后，钱开始用来购买舒适和体面的时间", intro: "日常、医疗、护理与兴趣共同决定了退休生活的真实成本。", options: [{ id: "basic", label: "基础养老", desc: "控制支出，满足基本生活" }, { id: "community", label: "社区养老", desc: "加入社区服务与适老支持" }, { id: "quality", label: "品质养老", desc: "更多医疗、护理与个人体验" }], build: retirement }
+];
+
+function summarizeBills(bills) {
+  const cash = bills.reduce((s, x) => s + x.cashCost, 0);
+  const hours = bills.reduce((s, x) => s + x.timeHours, 0);
+  const timeValue = bills.reduce((s, x) => s + Math.round(x.timeHours * hourlyValue()), 0);
+  const opportunity = bills.reduce((s, x) => s + x.opportunityCost, 0);
+  return { cash, hours, timeValue, opportunity, total: cash + timeValue + opportunity };
 }
 
-function renderShop() {
-  const shown = filteredItems();
-  el("shopGrid").innerHTML = shown.map(item => {
-    const owned = state.cart[item.id] || 0;
-    const quantity = getQuantity(item);
-    const affordable = quantity > 0 && item.price * quantity <= state.balance;
-    return `
-      <article class="shop-card ${owned ? "is-bought" : ""}" id="card-${item.id}" data-category="${item.category}">
-        <div class="item-art image-fallback" data-fallback="${item.name}">
-          <img src="${item.image}" alt="${item.alt}" width="320" height="240" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('failed');" />
-        </div>
-        <div class="item-body">
-          <div class="item-head">
-            <span class="badge">${item.heat}</span>
-            <span class="owned">已买 ${owned.toLocaleString("zh-CN")}</span>
-          </div>
-          <div class="item-name">${item.name}</div>
-          <div class="price">${formatMoney(item.price)}</div>
-          <div class="item-actions">
-            <button class="buy" type="button" data-buy="${item.id}" ${affordable ? "" : "disabled"}>购买</button>
-            <button class="sell" type="button" data-sell="${item.id}" ${owned ? "" : "disabled"}>卖出</button>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join("") || `<div class="empty-state shop-empty">没有匹配的商品。换个关键词，或者先把“只看已买”关掉。</div>`;
+function allBills(includePending = false) {
+  const picks = state.selections.slice();
+  if (includePending && state.pending) picks[state.stage] = state.pending;
+  return picks.filter(Boolean).flatMap(x => x.bills);
 }
 
-function renderReceipt() {
-  const entries = Object.entries(state.cart).filter(([, count]) => count > 0);
-  el("emptyReceipt").style.display = entries.length ? "none" : "block";
-  el("receiptList").innerHTML = entries.map(([id, count]) => {
-    const item = items.find(entry => entry.id === id);
-    return `
-      <li>
-        <div class="receipt-row"><b>${item.name}</b><span>x ${count.toLocaleString("zh-CN")}</span></div>
-        <div class="receipt-row"><span>小计</span><span>${formatMoney(item.price * count)}</span></div>
-      </li>
-    `;
+function formatMoney(value) { return CURRENCY.format(Math.round(value || 0)); }
+function formatWan(value) { return `${(value / 10000).toFixed(value >= 1000000 ? 0 : 1)}万元`; }
+
+function showScreen(id) {
+  ["intro", "journey", "result"].forEach(name => { el(name).hidden = name !== id; });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderTimeline() {
+  el("timeline").innerHTML = STAGES.map((s, i) => `<span class="${i < state.stage ? "done" : i === state.stage ? "active" : ""}"><i></i><b>${s.age.split("岁")[0]}</b></span>`).join("");
+}
+
+function renderStage() {
+  const stage = STAGES[state.stage];
+  state.pending = state.selections[state.stage] || null;
+  el("stageAge").textContent = `${stage.age} · 第${state.stage + 1}张账单`;
+  el("stageTitle").textContent = stage.title;
+  el("stageIntro").textContent = stage.intro;
+  el("stageCounter").textContent = `${String(state.stage + 1).padStart(2, "0")} / 07`;
+  el("options").innerHTML = stage.options.map(option => {
+    const selected = state.pending?.id === option.id;
+    const suggested = stage.profileKey && state.profile[stage.profileKey] === option.id;
+    return `<button type="button" class="option ${selected ? "selected" : ""}" data-option="${option.id}" aria-pressed="${selected}"><span>${option.label}${suggested ? "<em>你的预选</em>" : ""}</span><small>${option.desc}</small></button>`;
+  }).join("");
+  el("backBtn").disabled = state.stage === 0;
+  el("nextBtn").disabled = !state.pending;
+  el("nextBtn").textContent = state.stage === STAGES.length - 1 ? "生成最终账单" : "确认这张账单";
+  renderTimeline();
+  if (state.pending) renderReceipt(state.pending); else clearReceipt();
+  renderRunning();
+}
+
+function clearReceipt() {
+  el("receiptTitle").textContent = "等待选择";
+  el("receiptAge").textContent = "—";
+  el("receiptEmpty").hidden = false;
+  el("receiptBody").hidden = true;
+}
+
+function sourceMarkup(ids) {
+  return [...new Set(ids)].map(id => {
+    const s = SOURCES[id];
+    return `<article><b>${s.title}</b><span>${s.org} · ${s.year}</span><p>${s.note}</p><a href="${s.url}" target="_blank" rel="noreferrer">查看原始口径</a></article>`;
   }).join("");
 }
 
-function renderAchievements() {
-  const unlockedCount = achievements.filter(achievement => achievement.test(state)).length;
-  el("unlockedCountText").textContent = `${unlockedCount}/${achievements.length}`;
-  el("achievementList").innerHTML = achievements.map(achievement => {
-    const unlocked = achievement.test(state);
-    return `
-      <li class="${unlocked ? "" : "achievement-locked"}">
-        <div class="achievement-title">${unlocked ? "已解锁" : "未解锁"} · ${achievement.title}</div>
-        <div>${achievement.copy}</div>
-      </li>
-    `;
+function renderReceipt(selection) {
+  const summary = summarizeBills(selection.bills);
+  el("receiptTitle").textContent = selection.label;
+  el("receiptAge").textContent = STAGES[state.stage].age;
+  el("receiptEmpty").hidden = true;
+  el("receiptBody").hidden = false;
+  el("receiptLines").innerHTML = selection.bills.map(item => {
+    const amount = item.cashCost || item.opportunityCost || Math.round(item.timeHours * hourlyValue());
+    const kind = item.opportunityCost ? "机会成本" : item.timeHours ? `${INTEGER.format(item.timeHours)}小时` : "实际支付";
+    return `<article class="receipt-line"><div><b>${item.label}</b><span>${item.formula}</span><small>${kind}</small></div><strong>${formatMoney(amount)}</strong></article>`;
   }).join("");
+  el("receiptSubtotal").innerHTML = `<div><span>实际支付</span><b>${formatMoney(summary.cash)}</b></div><div><span>时间折算 · ${INTEGER.format(summary.hours)}小时</span><b>${formatMoney(summary.timeValue)}</b></div><div><span>机会成本</span><b>${formatMoney(summary.opportunity)}</b></div><div class="total"><span>这一阶段综合成本</span><b>${formatMoney(summary.total)}</b></div>`;
+  const hidden = [...selection.bills].sort((a, b) => (b.opportunityCost + b.timeHours * hourlyValue() + (b.small ? b.cashCost : 0)) - (a.opportunityCost + a.timeHours * hourlyValue() + (a.small ? a.cashCost : 0)))[0];
+  const hiddenAmount = hidden.opportunityCost || Math.round(hidden.timeHours * hourlyValue()) || hidden.cashCost;
+  el("missedCost").innerHTML = `<span>你可能漏算了</span><b>${hidden.label}：${formatMoney(hiddenAmount)}</b><p>${hidden.assumptions}</p>`;
+  el("sourceContent").innerHTML = sourceMarkup(selection.bills.flatMap(x => x.sourceIds));
 }
 
-function renderStats() {
-  const totalItems = Object.values(state.cart).reduce((sum, count) => sum + count, 0);
-  const pct = Math.min(100, (state.spent / STARTING_BALANCE) * 100);
-  el("balanceText").textContent = formatMoney(state.balance);
-  el("spentText").textContent = formatMoney(state.spent);
-  el("itemCount").textContent = totalItems.toLocaleString("zh-CN");
-  el("spentMeter").style.width = `${pct}%`;
-  el("timerText").textContent = state.timeLimit ? `${state.timeLeft} 秒` : "不限时";
-  el("quantityText").textContent = state.quantityMode === "max" ? "最大可买" : `${state.quantity} 件`;
-  el("spentPercentText").textContent = formatPercent(pct);
-  el("biggestPurchaseText").textContent = state.biggestPurchase ? formatChineseAmount(state.biggestPurchase) : "¥0";
-  el("lastActionText").textContent = state.lastAction;
-  el("clearCart").textContent = state.clearPending ? "确认清空" : "清空购物车";
+function renderRunning(preview = false) {
+  const summary = summarizeBills(allBills(preview));
+  el("runningCash").textContent = formatMoney(summary.cash);
+  el("runningTime").textContent = formatMoney(summary.timeValue);
+  el("runningOpportunity").textContent = formatMoney(summary.opportunity);
+  el("runningTotal").textContent = formatMoney(summary.total);
 }
 
-function render() {
-  renderRealityCheck();
-  renderStats();
-  renderPills();
-  renderShop();
-  renderReceipt();
-  renderAchievements();
-}
-
-function startTimerIfNeeded() {
-  if (state.started) return;
-  state.started = true;
-  if (!state.timeLimit) return;
-  state.timeLeft = state.timeLimit;
-  state.timerId = window.setInterval(() => {
-    state.timeLeft -= 1;
-    renderStats();
-    if (state.timeLeft <= 0) {
-      window.clearInterval(state.timerId);
-      showFinish(false);
-    }
-  }, 1000);
-}
-
-function buy(id) {
-  const item = items.find(entry => entry.id === id);
-  const quantity = getQuantity(item);
-  const maxCount = Math.floor(state.balance / item.price);
-  const count = Math.min(quantity, maxCount);
-  if (count <= 0) return;
-  const unlockedBefore = getUnlockedAchievementIds();
-  startTimerIfNeeded();
-  state.clearPending = false;
-  state.cart[id] = (state.cart[id] || 0) + count;
-  state.balance -= item.price * count;
-  const purchaseTotal = item.price * count;
-  state.spent += purchaseTotal;
-  state.biggestPurchase = Math.max(state.biggestPurchase, purchaseTotal);
-  state.lastAction = `买入 ${item.name} x ${count.toLocaleString("zh-CN")}，刷掉 ${formatMoney(purchaseTotal)}。`;
-  render();
-  const unlockedAfter = getUnlockedAchievementIds();
-  const newAchievement = achievements.find(achievement => !unlockedBefore.has(achievement.id) && unlockedAfter.has(achievement.id));
-  if (newAchievement) {
-    state.lastAction = `解锁成就：${newAchievement.title}。${newAchievement.copy}`;
-    renderStats();
-  }
-  flashElement(el("balanceText"), "balance-tick");
-  flashElement(el(`card-${id}`), "deal-flash");
-  flashElement(el("lastActionText"), "toast-flash");
-  if (state.balance === 0) showFinish(true);
-}
-
-function sell(id) {
-  const item = items.find(entry => entry.id === id);
-  const owned = state.cart[id] || 0;
-  if (!owned) return;
-  const count = Math.min(state.quantityMode === "max" ? owned : Math.max(1, Number(state.quantity) || 1), owned);
-  state.clearPending = false;
-  state.cart[id] -= count;
-  if (state.cart[id] <= 0) delete state.cart[id];
-  state.balance += item.price * count;
-  state.spent -= item.price * count;
-  state.lastAction = `卖出 ${item.name} x ${count.toLocaleString("zh-CN")}，退回 ${formatMoney(item.price * count)}。`;
-  render();
-  flashElement(el("balanceText"), "balance-tick");
-  flashElement(el("lastActionText"), "toast-flash");
-}
-
-function resetGame() {
-  window.clearInterval(state.timerId);
-  state.balance = STARTING_BALANCE;
-  state.spent = 0;
-  state.biggestPurchase = 0;
-  state.cart = {};
-  state.category = "all";
-  state.sort = "priceAsc";
-  state.search = "";
-  state.ownedOnly = false;
-  state.timeLeft = state.timeLimit;
-  state.timerId = null;
-  state.started = false;
-  state.clearPending = false;
-  state.lastAction = "还没开买，先挑一个顺眼的。";
-  el("copyStatus").textContent = "";
-  el("sortSelect").value = state.sort;
-  el("searchInput").value = state.search;
-  el("ownedOnly").checked = state.ownedOnly;
-  el("finishDialog").close();
-  render();
-}
-
-function clearCart() {
-  if (state.spent > 0 && !state.clearPending) {
-    state.clearPending = true;
-    state.lastAction = "再点一次确认清空，战绩单会回到开局状态。";
-    el("copyStatus").textContent = "再点一次“确认清空”才会清空购物车。";
-    renderStats();
-    flashElement(el("lastActionText"), "toast-flash");
-    return;
-  }
-  state.balance = STARTING_BALANCE;
-  state.spent = 0;
-  state.biggestPurchase = 0;
-  state.cart = {};
-  state.ownedOnly = false;
-  state.clearPending = false;
-  state.lastAction = "战绩单已清空。";
-  el("ownedOnly").checked = false;
-  el("copyStatus").textContent = "战绩单已清空。";
-  render();
-}
-
-function receiptText() {
-  const lines = [`我在《花光马斯克的钱》里花掉了 ${formatMoney(state.spent)}，还剩 ${formatMoney(state.balance)}。`];
-  const entries = Object.entries(state.cart).filter(([, count]) => count > 0);
-  if (!entries.length) {
-    lines.push("还没开始买，钱包暂时非常体面。");
-  } else {
-    entries.forEach(([id, count]) => {
-      const item = items.find(entry => entry.id === id);
-      lines.push(`${item.name} x ${count.toLocaleString("zh-CN")} = ${formatMoney(item.price * count)}`);
-    });
-  }
-  lines.push(`成就 ${achievements.filter(achievement => achievement.test(state)).length}/${achievements.length}`);
-  return lines.join("\n");
-}
-
-async function copyReceipt() {
-  const text = receiptText();
-  try {
-    await navigator.clipboard.writeText(text);
-    el("copyStatus").textContent = "战绩已复制，值友看了都说离谱。";
-  } catch {
-    el("copyStatus").textContent = text;
-  }
-}
-
-function showFinish(success) {
-  const unlocked = achievements.filter(achievement => achievement.test(state)).length;
-  const totalItems = Object.values(state.cart).reduce((sum, count) => sum + count, 0);
-  el("finishTitle").textContent = success ? "你花光了全部预算" : "时间到";
-  el("finishCopy").textContent = success
-    ? "这张战绩单已经不是消费，是城市规划。"
-    : "预算还没见底，换个更凶的购买路线再冲一次。";
-  el("finishSpent").textContent = `总花费：${formatMoney(state.spent)}`;
-  el("finishItems").textContent = `购买数量：${totalItems.toLocaleString("zh-CN")} 件`;
-  el("finishAchievements").textContent = `成就：${unlocked}/${achievements.length}`;
-  el("finishDialog").showModal();
-}
-
-function setCategory(category) {
-  state.category = category;
-  render();
-}
-
-el("shopGrid").addEventListener("click", event => {
-  const buyId = event.target.dataset.buy;
-  const sellId = event.target.dataset.sell;
-  if (buyId) buy(buyId);
-  if (sellId) sell(sellId);
-});
-
-document.querySelector(".quantity-actions").addEventListener("click", event => {
-  const button = event.target.closest("button[data-qty]");
-  if (!button) return;
-  document.querySelectorAll(".quantity-actions button").forEach(entry => entry.classList.remove("active"));
-  button.classList.add("active");
-  state.quantityMode = button.dataset.qty;
-  if (state.quantityMode !== "max") {
-    state.quantity = Number(state.quantityMode);
-    el("quantityNumber").value = state.quantity;
-    el("quantityNumber").disabled = false;
-  } else {
-    el("quantityNumber").disabled = true;
-  }
-  render();
-});
-
-el("quantityNumber").addEventListener("input", event => {
-  const value = Math.max(1, Math.min(999999, Number(event.target.value) || 1));
-  state.quantityMode = "custom";
-  state.quantity = value;
-  document.querySelectorAll(".quantity-actions button").forEach(entry => entry.classList.toggle("active", entry.dataset.qty === String(value)));
-  render();
-});
-
-el("sortSelect").addEventListener("change", event => {
-  state.sort = event.target.value;
-  render();
-});
-el("searchInput").addEventListener("input", event => {
-  state.search = event.target.value;
-  renderShop();
-});
-el("searchInput").addEventListener("change", event => {
-  state.search = event.target.value;
-  renderShop();
-});
-el("ownedOnly").addEventListener("change", event => {
-  state.ownedOnly = event.target.checked;
-  renderShop();
-});
-el("categoryPills").addEventListener("click", event => {
-  const button = event.target.closest("button[data-category]");
-  if (button) setCategory(button.dataset.category);
-});
-el("startGame").addEventListener("click", () => window.scrollTo({ top: document.querySelector(".content-grid").offsetTop - 12, behavior: "smooth" }));
-el("resetGame").addEventListener("click", resetGame);
-el("playAgain").addEventListener("click", resetGame);
-el("copyReceipt").addEventListener("click", copyReceipt);
-el("clearCart").addEventListener("click", clearCart);
-
-document.querySelector(".challenge").addEventListener("click", event => {
-  const button = event.target.closest("button[data-time]");
-  if (!button) return;
-  document.querySelectorAll(".challenge button").forEach(entry => entry.classList.remove("active"));
-  button.classList.add("active");
-  state.timeLimit = Number(button.dataset.time);
-  state.timeLeft = state.timeLimit;
-  resetGame();
-});
-
-document.querySelector(".tabs").addEventListener("click", event => {
-  const tab = event.target.closest(".tab");
-  if (!tab) return;
-  document.querySelectorAll(".tab").forEach(entry => {
-    entry.classList.remove("active");
-    entry.setAttribute("aria-selected", "false");
+function chooseOption(id) {
+  const stage = STAGES[state.stage];
+  const option = stage.options.find(x => x.id === id);
+  state.pending = { ...option, bills: stage.build(id) };
+  document.querySelectorAll(".option").forEach(button => {
+    const selected = button.dataset.option === id;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", selected);
   });
-  document.querySelectorAll(".tab-view").forEach(entry => entry.classList.remove("active"));
-  tab.classList.add("active");
-  tab.setAttribute("aria-selected", "true");
-  el(tab.dataset.tab === "receipt" ? "receiptView" : "achievementView").classList.add("active");
-});
+  el("nextBtn").disabled = false;
+  renderReceipt(state.pending);
+  renderRunning(true);
+  el("receipt").classList.remove("print-in");
+  requestAnimationFrame(() => el("receipt").classList.add("print-in"));
+}
 
-render();
+function start(event) {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  state.profile = { birthYear: Number(data.get("birthYear")), city: data.get("city"), income: Number(data.get("income")), housing: data.get("housing"), commute: Number(data.get("commute")), family: data.get("family") };
+  state.stage = 0; state.selections = []; state.pending = null;
+  showScreen("journey"); renderStage(); el("stageTitle").focus({ preventScroll: true });
+}
+
+function nextStage() {
+  if (!state.pending) return;
+  state.selections[state.stage] = state.pending;
+  if (state.stage === STAGES.length - 1) return renderResult();
+  state.stage += 1; renderStage(); el("stageTitle").focus({ preventScroll: true });
+}
+
+function previousStage() {
+  if (state.stage === 0) return;
+  state.stage -= 1; renderStage(); el("stageTitle").focus({ preventScroll: true });
+}
+
+function itemTotal(item) { return item.cashCost + item.opportunityCost + Math.round(item.timeHours * hourlyValue()); }
+
+function inspector(item) {
+  const cash = item.cashCost ? `<div><span>实际支付</span><b>${formatMoney(item.cashCost)}</b></div>` : "";
+  const time = item.timeHours ? `<div><span>时间折算</span><b>${INTEGER.format(item.timeHours)}小时 = ${formatMoney(item.timeHours * hourlyValue())}</b></div>` : "";
+  const opp = item.opportunityCost ? `<div><span>机会成本</span><b>${formatMoney(item.opportunityCost)}</b></div>` : "";
+  el("formulaInspector").innerHTML = `<p class="overline">金额追溯</p><h3>${item.label}</h3><code>${item.formula}</code><div class="inspect-values">${cash}${time}${opp}</div><p>${item.assumptions}</p><div class="inspect-sources">${sourceMarkup(item.sourceIds)}</div>`;
+}
+
+function renderResult() {
+  const bills = allBills();
+  const summary = summarizeBills(bills);
+  const ranked = [...bills].sort((a, b) => itemTotal(b) - itemTotal(a));
+  const small = bills.filter(x => x.small).sort((a, b) => itemTotal(b) - itemTotal(a));
+  const smallTotal = small.reduce((s, x) => s + itemTotal(x), 0);
+  const selfCash = bills.filter(x => x.forSelf).reduce((s, x) => s + x.cashCost, 0);
+  const selfPct = Math.max(1, Math.round(selfCash / summary.cash * 100));
+  el("finalCash").textContent = formatMoney(summary.cash);
+  el("finalTime").textContent = formatMoney(summary.timeValue);
+  el("finalOpportunity").textContent = formatMoney(summary.opportunity);
+  el("finalTotal").textContent = formatMoney(summary.total);
+  el("finalRange").textContent = `现实差异估算区间：${formatWan(summary.total * .88)}—${formatWan(summary.total * 1.15)}`;
+  el("findingTitle").textContent = `有${formatWan(smallTotal)}，在付款当天都显得“不算多”。`;
+  el("findingCopy").textContent = `真正累积起来的不是某一次冲动，而是几十年反复发生的饮食、通勤、便利消费、物业和家庭往返。它们占你综合成本的${Math.round(smallTotal / summary.total * 100)}%。`;
+  el("topCosts").innerHTML = ranked.slice(0, 5).map((item, i) => `<button type="button" data-inspect="${item.id}"><span>${String(i + 1).padStart(2, "0")}</span><div><b>${item.label}</b><small>${item.formula}</small></div><strong>${formatMoney(itemTotal(item))}</strong></button>`).join("");
+  el("formulaInspector").dataset.items = JSON.stringify(bills.map(x => x.id));
+  window.__resultBills = bills;
+  inspector(ranked[0]);
+  el("smallTitle").textContent = `${small.length}笔小账，累计${formatWan(smallTotal)}`;
+  el("smallCostList").innerHTML = small.slice(0, 6).map(item => `<div><span>${item.label}<small>${item.formula}</small></span><b>${formatMoney(itemTotal(item))}</b></div>`).join("");
+  el("selfTitle").textContent = `实际支付中，约${selfPct}%明确留给了自己`;
+  el("selfCopy").textContent = "这里只统计被标记为个人兴趣、体验与自由选择的支出。家庭与基本生活并非没有价值，只是不被强行包装成“为自己”。";
+  el("selfPercent").textContent = `${selfPct}%`;
+  el("selfCash").textContent = formatMoney(selfCash);
+  const alternatives = [
+    { stage: 3, current: state.selections[3].id, target: state.selections[3].id === "buy" ? "rent" : "buy", label: state.selections[3].id === "buy" ? "如果长期租房" : "如果购买住房" },
+    { stage: 4, current: state.selections[4].id, target: state.selections[4].id === "child" ? "couple" : "child", label: state.selections[4].id === "child" ? "如果不育儿" : "如果计划育儿" },
+    { stage: 2, current: state.selections[2].id, target: state.selections[2].id === "convenient" ? "frugal" : "convenient", label: state.selections[2].id === "convenient" ? "如果更克制" : "如果便利优先" }
+  ];
+  el("whatIfButtons").innerHTML = alternatives.map((x, i) => `<button type="button" data-whatif="${i}">${x.label}</button>`).join("");
+  el("whatIfButtons").dataset.items = JSON.stringify(alternatives);
+  el("whatIfResult").textContent = "选择一个假设，系统只替换这一阶段并重新计算。";
+  el("shareLead").textContent = `我在${CITIES[state.profile.city].name}走完了一生`;
+  el("shareTotal").textContent = `综合成本 ${formatWan(summary.total)}`;
+  el("shareQuote").textContent = `其中${formatWan(smallTotal)}，都是当时觉得“没多少钱”的支出。`;
+  showScreen("result"); el("resultTitle").focus({ preventScroll: true });
+}
+
+function renderWhatIf(index) {
+  const alt = JSON.parse(el("whatIfButtons").dataset.items)[index];
+  const original = summarizeBills(state.selections[alt.stage].bills).total;
+  const replacement = summarizeBills(STAGES[alt.stage].build(alt.target)).total;
+  const delta = replacement - original;
+  const total = summarizeBills(allBills()).total + delta;
+  el("whatIfResult").innerHTML = `<b>${alt.label}：综合成本将${delta < 0 ? "减少" : "增加"}${formatWan(Math.abs(delta))}</b><span>新的人生总成本约${formatWan(total)}。这里只替换一项选择，其他条件保持不变。</span>`;
+}
+
+function restart() { state.stage = 0; state.selections = []; state.pending = null; showScreen("intro"); }
+
+async function copyResult() {
+  const summary = summarizeBills(allBills());
+  const smallTotal = allBills().filter(x => x.small).reduce((s, x) => s + itemTotal(x), 0);
+  const text = `我的一生综合成本约${formatWan(summary.total)}，其中${formatWan(smallTotal)}都是当时觉得“没多少钱”的支出。每一笔都能拆到公式。`;
+  try { await navigator.clipboard.writeText(text); toast("发现已复制，可以去分享了"); } catch { toast("复制失败，请长按分享卡复制"); }
+}
+
+let toastTimer;
+function toast(message) { clearTimeout(toastTimer); el("toast").textContent = message; el("toast").classList.add("show"); toastTimer = setTimeout(() => el("toast").classList.remove("show"), 2400); }
+
+el("commute").addEventListener("input", event => { el("commuteOutput").textContent = `${event.target.value} 分钟`; });
+el("profileForm").addEventListener("submit", start);
+el("options").addEventListener("click", event => { const button = event.target.closest("[data-option]"); if (button) chooseOption(button.dataset.option); });
+el("nextBtn").addEventListener("click", nextStage);
+el("backBtn").addEventListener("click", previousStage);
+el("restartTop").addEventListener("click", restart);
+el("restartBtn").addEventListener("click", restart);
+el("copyResult").addEventListener("click", copyResult);
+el("topCosts").addEventListener("click", event => { const button = event.target.closest("[data-inspect]"); if (button) inspector(window.__resultBills.find(x => x.id === button.dataset.inspect)); });
+el("whatIfButtons").addEventListener("click", event => { const button = event.target.closest("[data-whatif]"); if (button) renderWhatIf(Number(button.dataset.whatif)); });
+
+window.__lifeBillTest = { CITIES, STAGES, state, bill, summarizeBills, mortgagePayment, allBills, itemTotal };

@@ -1,203 +1,126 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>花光马斯克的钱</title>
-    <meta name="description" content="给你约 7.15 万亿元人民币预算，从劳力士、私人岛屿买到电影公司和科技公司，看看多久能花光马斯克的钱。" />
-    <meta name="keywords" content="花光马斯克的钱,马斯克财富模拟器,中文在线游戏,花钱模拟器,净值模拟器" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://puzelin35-cmyk.github.io/spend-musk-money/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="zh_CN" />
-    <meta property="og:title" content="花光马斯克的钱" />
-    <meta property="og:description" content="给你约 7.15 万亿元人民币预算，从奢侈品买到整家公司，看看多久能花光。" />
-    <meta property="og:url" content="https://puzelin35-cmyk.github.io/spend-musk-money/" />
-    <meta property="og:image" content="https://puzelin35-cmyk.github.io/spend-musk-money/assets/items/hero-rocket.jpg" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <a class="skip-link" href="#shopping">跳到购物清单</a>
-    <main class="app">
-      <section class="stage" aria-label="花光马斯克的钱游戏控制台">
-        <img class="stage-bg" src="assets/items/hero-rocket.jpg" alt="火箭发射" width="1600" height="1067" fetchpriority="high" />
-        <div class="console-shell">
-          <div class="profile-chip" aria-label="马斯克资料卡">
-            <img src="assets/items/elon-musk-avatar.jpg" alt="埃隆·马斯克头像" width="116" height="116" />
-            <div>
-              <span>本局资产池</span>
-              <strong>Elon Musk 马斯克</strong>
-            </div>
-            <b>世界首富模式</b>
-          </div>
-
-          <div class="console-main">
-            <p class="console-label"><span></span>人民币资产局 · 从劳力士买到科技公司</p>
-            <h1>花光马斯克的钱</h1>
-            <p class="intro-copy">约 7.15 万亿元已经装进这台控制台。买奢侈品只是热身，真正的大单是岛屿、版权和整家公司。</p>
-          </div>
-
-          <div class="scale-ledger mobile-scale-ledger" aria-hidden="true">
-            <b>这笔钱约等于</b>
-            <span>LV Speedy 4.61 亿只</span>
-            <span>劳力士潜航者 7840 万只</span>
-            <span>苏梅岛别墅 143 万套</span>
-            <span>拉奈岛 3510 座</span>
-            <span>X 公司约 24 次</span>
-          </div>
-
-          <div class="balance-board" aria-label="余额面板">
-            <span>剩余余额</span>
-            <strong id="balanceText">¥7,148,817,000,000</strong>
-            <div class="meter" aria-label="已花费进度"><span id="spentMeter"></span></div>
-          </div>
-
-          <div class="console-stats" aria-label="游戏状态">
-            <div class="metric">
-              <span>已花费</span>
-              <strong id="spentText">¥0</strong>
-            </div>
-            <div class="metric">
-              <span>购物数量</span>
-              <strong id="itemCount">0</strong>
-            </div>
-            <div class="metric timer">
-              <span>挑战计时</span>
-              <strong id="timerText">不限时</strong>
-            </div>
-          </div>
-
-          <div class="console-actions">
-            <div class="actions">
-              <button class="primary" id="startGame" type="button">开始花钱</button>
-              <button class="secondary" id="resetGame" type="button">重开一局</button>
-            </div>
-            <div class="challenge" role="group" aria-label="挑战模式">
-              <button type="button" data-time="0" class="active">不限时</button>
-              <button type="button" data-time="30">30 秒</button>
-              <button type="button" data-time="60">60 秒</button>
-              <button type="button" data-time="300">300 秒</button>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f0e8" />
+  <title>一生账单｜那些当时觉得没多少钱的支出</title>
+  <meta name="description" content="输入6项生活信息，逐笔拆开住房、通勤、婚育、照护和养老成本，看看一生的钱究竟花在了哪里。" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <main id="main">
+    <section id="intro" class="intro" aria-labelledby="title">
+      <div class="masthead"><span>THE LIFETIME LEDGER</span><span>2025 当前价格口径</span></div>
+      <div class="intro-grid">
+        <div class="intro-copy">
+          <p class="overline">一场 4 分钟的人生拆账实验</p>
+          <h1 id="title">你以为没花多少，<br />只是从没加总过。</h1>
+          <p class="deck">房贷不只包括房价，通勤不只包括车费，养育也不只包括学费。我们把每笔公式摊开，看看那些不起眼的小账，最后拿走了多少人生。</p>
+          <div class="promise-list" aria-label="体验说明">
+            <span>每一元有公式</span><span>现金与时间分开</span><span>来源随时可查</span>
           </div>
         </div>
-        <div class="scale-ledger desktop-scale-ledger" aria-hidden="true">
-          <b>这笔钱约等于</b>
-          <span>LV Speedy 4.61 亿只</span>
-          <span>劳力士潜航者 7840 万只</span>
-          <span>苏梅岛别墅 143 万套</span>
-          <span>拉奈岛 3510 座</span>
-          <span>X 公司约 24 次</span>
-        </div>
+
+        <form id="profileForm" class="profile-sheet">
+          <div class="sheet-head"><b>建立你的计算口径</b><span>01 / 06</span></div>
+          <div class="form-grid">
+            <label><span>出生年份</span><input id="birthYear" name="birthYear" type="number" min="1950" max="2010" value="1995" inputmode="numeric" required /></label>
+            <label><span>常住城市</span><select id="city" name="city"><option value="tier1">一线城市</option><option value="new1">新一线城市</option><option value="county">小城市 / 县城</option></select></label>
+            <label class="wide"><span>当前税后月收入</span><div class="money-input"><i>¥</i><input id="income" name="income" type="number" min="0" max="500000" step="500" value="12000" inputmode="numeric" required /></div><small>用于估算你的时间价值，不用于评价消费能力。</small></label>
+            <fieldset class="wide"><legend>住房方式</legend><div class="segmented"><label><input type="radio" name="housing" value="rent" checked /><span>租房</span></label><label><input type="radio" name="housing" value="buy" /><span>买房</span></label><label><input type="radio" name="housing" value="family" /><span>与家人同住</span></label></div></fieldset>
+            <label class="wide"><span>单程通勤时间</span><div class="range-line"><input id="commute" name="commute" type="range" min="0" max="120" step="5" value="45" /><output id="commuteOutput">45 分钟</output></div></label>
+            <fieldset class="wide"><legend>婚育计划</legend><div class="segmented"><label><input type="radio" name="family" value="single" /><span>单身</span></label><label><input type="radio" name="family" value="couple" checked /><span>两人生活</span></label><label><input type="radio" name="family" value="child" /><span>计划育儿</span></label></div></fieldset>
+          </div>
+          <button class="primary" type="submit">开始逐笔拆账 <span aria-hidden="true">→</span></button>
+          <p class="fine-print">数据只在当前页面计算，不上传、不保存。</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="journey" class="journey" hidden aria-label="人生逐阶段拆账">
+      <header class="journey-head">
+        <button id="restartTop" class="link-button" type="button">重新填写</button>
+        <div class="timeline" id="timeline" aria-label="人生阶段"></div>
+        <span id="stageCounter">01 / 07</span>
+      </header>
+
+      <div class="journey-grid">
+        <section class="decision-panel" aria-labelledby="stageTitle">
+          <p id="stageAge" class="overline"></p>
+          <h2 id="stageTitle" tabindex="-1"></h2>
+          <p id="stageIntro" class="stage-intro"></p>
+          <div id="options" class="option-list" role="group" aria-label="选择这一阶段的路径"></div>
+          <p class="change-note">这里没有正确答案。改选后，右侧账单会立即重算。</p>
+        </section>
+
+        <section id="receipt" class="receipt" aria-labelledby="receiptTitle">
+          <div class="receipt-head">
+            <div><span>STATEMENT</span><h3 id="receiptTitle">等待选择</h3></div>
+            <div class="receipt-seal" id="receiptAge">—</div>
+          </div>
+          <div id="receiptEmpty" class="receipt-empty">选择一条人生路径后，这里会逐笔打印账单。</div>
+          <div id="receiptBody" hidden>
+            <div class="receipt-columns" aria-hidden="true"><span>项目 / 计算方式</span><span>金额</span></div>
+            <div id="receiptLines" class="receipt-lines"></div>
+            <div id="receiptSubtotal" class="receipt-subtotal"></div>
+            <div id="missedCost" class="missed-cost"></div>
+            <details id="sourceDetails" class="source-details"><summary>查看计算口径与来源</summary><div id="sourceContent"></div></details>
+          </div>
+          <div class="receipt-actions">
+            <button id="backBtn" class="secondary" type="button">上一阶段</button>
+            <button id="nextBtn" class="primary" type="button" disabled>确认这张账单</button>
+          </div>
+        </section>
+      </div>
+
+      <aside class="running-ledger" aria-label="累计账单">
+        <div><span>实际支付</span><b id="runningCash">¥0</b></div>
+        <div><span>时间折算</span><b id="runningTime">¥0</b></div>
+        <div><span>机会成本</span><b id="runningOpportunity">¥0</b></div>
+        <div class="running-total"><span>综合成本</span><b id="runningTotal">¥0</b></div>
+      </aside>
+    </section>
+
+    <section id="result" class="result" hidden aria-labelledby="resultTitle">
+      <div class="result-header">
+        <p class="overline">FINAL STATEMENT · 你走完了这一生</p>
+        <h2 id="resultTitle" tabindex="-1">钱没有突然消失。<br />它只是一笔一笔走了。</h2>
+      </div>
+
+      <section class="totals-table" aria-label="一生综合成本">
+        <div><span>实际支付</span><b id="finalCash">¥0</b></div>
+        <div><span>时间折算</span><b id="finalTime">¥0</b></div>
+        <div><span>机会成本</span><b id="finalOpportunity">¥0</b></div>
+        <div class="grand-total"><span>一生综合成本</span><b id="finalTotal">¥0</b></div>
+        <p id="finalRange"></p>
       </section>
 
-      <section class="reality-check" aria-label="普通人离马斯克有多远">
-        <div class="reality-head">
-          <p class="section-label">尺度换算</p>
-          <h2>普通人离马斯克有多远？</h2>
-          <p>先别急着买火箭，看看普通人想攒到这笔钱，需要把好运和工时拉到什么尺度。</p>
-        </div>
-        <div class="reality-grid">
-          <article class="reality-card">
-            <span>马斯克财富折合</span>
-            <strong id="worthCompact">约 7.15 万亿元</strong>
-            <p id="worthDetail">按实时富豪榜净值折算，口径见数据说明</p>
-          </article>
-          <article class="reality-card highlight">
-            <span>如果每天中一次 500 万</span>
-            <strong id="lotteryDays">约 143.0 万天</strong>
-            <p id="lotteryYears">约 3917 年，天天中奖也要从古代中到现在。</p>
-          </article>
-          <article class="reality-card">
-            <span>如果按平均工资上班</span>
-            <strong id="salaryYears">约 9986 万年</strong>
-            <p>按 2025 年城镇私营单位年均工资 71590 元估算。</p>
-          </article>
-        </div>
-        <p class="data-note">娱乐模拟：净值、汇率和彩票奖金会波动，页面采用固定口径方便比较。</p>
+      <section class="finding" aria-labelledby="findingTitle">
+        <p class="overline">最重要的发现</p>
+        <h3 id="findingTitle"></h3>
+        <p id="findingCopy"></p>
       </section>
 
-      <section class="controls" aria-label="购买控制">
-        <div class="control-group">
-          <label for="quantityNumber">每次买</label>
-          <div class="quantity-actions" role="group" aria-label="快捷数量">
-            <button type="button" data-qty="1" class="active">1</button>
-            <button type="button" data-qty="10">10</button>
-            <button type="button" data-qty="100">100</button>
-            <button type="button" data-qty="max">最多</button>
-          </div>
-          <div class="custom-quantity">
-            <span>自定义</span>
-            <input id="quantityNumber" name="quantity" type="number" min="1" max="999999" value="1" inputmode="numeric" autocomplete="off" aria-label="自定义每次购买数量" />
-          </div>
-          <output id="quantityText" class="visually-hidden" for="quantityNumber">1 件</output>
-        </div>
-      </section>
+      <div class="result-columns">
+        <section class="rank-section" aria-labelledby="rankTitle"><div class="section-head"><div><p class="overline">TOP 5</p><h3 id="rankTitle">最容易把你拖住的五笔账</h3></div><span>点击任意一笔查看公式</span></div><div id="topCosts" class="top-costs"></div></section>
+        <aside id="formulaInspector" class="formula-inspector" aria-live="polite"><p class="overline">金额追溯</p><h3>选择左侧任意一笔</h3><p>你会看到这笔钱花在哪里、怎么算，以及依据什么口径。</p></aside>
+      </div>
 
-      <section class="content-grid" id="shopping" aria-label="购物清单和战绩单">
-        <div>
-          <div class="section-head shop-tools">
-            <h2>购物清单</h2>
-            <div class="filters">
-              <input id="searchInput" name="search" type="search" placeholder="搜商品、火箭、地铁…" aria-label="搜索商品" autocomplete="off" />
-              <select id="sortSelect" name="sort" aria-label="排序">
-                <option value="priceAsc">价格从低到高</option>
-                <option value="priceDesc">价格从高到低</option>
-              </select>
-              <label class="owned-toggle">
-                <input id="ownedOnly" name="ownedOnly" type="checkbox" />
-                只看已买
-              </label>
-            </div>
-            <div class="category-pills" id="categoryPills" aria-label="分类快捷筛选"></div>
-          </div>
-          <div class="shop-grid" id="shopGrid"></div>
-        </div>
+      <section class="small-costs" aria-labelledby="smallTitle"><p class="overline">每天没觉得，最后很惊人</p><h3 id="smallTitle"></h3><div id="smallCostList"></div></section>
 
-        <aside class="receipt-panel" aria-label="小票和成就">
-          <div class="receipt-title">
-            <span>战绩单</span>
-            <strong id="spentPercentText">0%</strong>
-          </div>
-          <div class="receipt-stats" aria-label="战绩概览">
-            <div><span>最高单笔</span><strong id="biggestPurchaseText">¥0</strong></div>
-            <div><span>成就</span><strong id="unlockedCountText">0/9</strong></div>
-          </div>
-          <p class="live-toast" id="lastActionText" aria-live="polite">还没开买，先挑一个顺眼的。</p>
-          <div class="tabs" role="tablist">
-            <button class="tab active" type="button" data-tab="receipt" role="tab" aria-controls="receiptView" aria-selected="true">小票</button>
-            <button class="tab" type="button" data-tab="achievements" role="tab" aria-controls="achievementView" aria-selected="false">成就</button>
-          </div>
-          <div id="receiptView" class="tab-view active">
-            <div class="receipt-actions">
-              <button class="secondary" id="copyReceipt" type="button">复制战绩</button>
-              <button class="secondary" id="clearCart" type="button">清空购物车</button>
-            </div>
-            <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
-            <div class="empty-state" id="emptyReceipt">还没买东西。先从一块腕表，或者一座岛开始。</div>
-            <ul id="receiptList"></ul>
-          </div>
-          <div id="achievementView" class="tab-view">
-            <ul id="achievementList"></ul>
-          </div>
-        </aside>
-      </section>
+      <section class="self-section"><div><p class="overline">真正花给自己</p><h3 id="selfTitle"></h3><p id="selfCopy"></p></div><div class="self-number"><strong id="selfPercent">0%</strong><span id="selfCash">¥0</span></div></section>
 
-      <dialog id="finishDialog">
-        <div class="dialog-body">
-          <p class="section-label">结算完成</p>
-          <h2 id="finishTitle">你花光了全部预算</h2>
-          <p id="finishCopy"></p>
-          <div class="dialog-stats">
-            <span id="finishSpent"></span>
-            <span id="finishItems"></span>
-            <span id="finishAchievements"></span>
-          </div>
-          <button class="primary" id="playAgain" type="button">再玩一次</button>
-        </div>
-      </dialog>
-    </main>
+      <section class="parallel" aria-labelledby="parallelTitle"><p class="overline">只改一个决定</p><h3 id="parallelTitle">另一条人生会怎样？</h3><div id="whatIfButtons" class="what-if-buttons"></div><div id="whatIfResult" class="what-if-result">选择一个假设，系统只替换这一阶段并重新计算。</div></section>
 
-    <script src="app.js"></script>
-  </body>
+      <section id="shareCard" class="share-card"><span>一生账单</span><p id="shareLead"></p><strong id="shareTotal"></strong><blockquote id="shareQuote"></blockquote></section>
+      <div class="result-actions"><button id="copyResult" class="primary" type="button">复制这条发现</button><button id="restartBtn" class="secondary" type="button">换一种人生</button></div>
+      <p class="method-note">所有金额均为2025年当前价格口径下的互动估算，不叠加未来通胀，不构成财务建议。估算区间用于表达现实差异，而非制造个位数精度。</p>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
 </html>
