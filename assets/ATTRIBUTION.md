@@ -1,15 +1,17 @@
 # 图片来源
 
-图片已下载到 `assets/items/`，页面不远程热链。商品图按精确商品关键词选择首张可下载且语义正确的搜索结果；首张不可用时顺延到下一张。图片授权以各来源页为准，本项目仅作本地娱乐模拟。
+当前《一生账单》页面只使用本地 `favicon.svg`，不展示旧版商品图片。
 
-## 固定主视觉
+以下图片来自旧版“花光马斯克的钱”互动页面，素材仍保留在 `assets/`，以便需要恢复或拆分旧站时追溯来源。页面不远程热链；图片授权以各来源页为准。
+
+## 旧版固定主视觉
 
 | 文件 | 用途 | 来源 | 许可 |
 | --- | --- | --- | --- |
 | `elon-musk-avatar.jpg` | 马斯克头像 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Elon_Musk_Royal_Society_(crop2).jpg) | CC BY-SA 4.0 |
 | `hero-rocket.jpg` | 首页火箭主视觉 | [Wikimedia Commons / NASA](https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg) | Public domain |
 
-## 当前商品图
+## 旧版商品图
 
 | 文件 | 商品 | 搜索关键词 | 来源 |
 | --- | --- | --- | --- |

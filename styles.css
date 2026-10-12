@@ -21,7 +21,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: var(--paper); }
 button, input, select { font: inherit; }
 button { cursor: pointer; touch-action: manipulation; }
-button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid rgba(25,78,104,.28); outline-offset: 3px; }
+button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid rgba(25,78,104,.28); outline-offset: 3px; }
 [hidden] { display: none !important; }
 .skip-link { position: fixed; left: 12px; top: 12px; z-index: 100; padding: 11px 14px; color: #fff; background: var(--ink); opacity: 0; transform: translateY(-140%); pointer-events: none; }
 .skip-link:focus-visible { opacity: 1; transform: none; pointer-events: auto; }
@@ -31,7 +31,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .primary:hover:not(:disabled) { background: var(--blue); }
 .primary:active:not(:disabled), .secondary:active, .option:active { transform: scale(.985); }
 .primary:disabled { cursor: not-allowed; opacity: .35; }
-.secondary { padding: 0 20px; color: var(--ink); background: transparent; }
+.secondary { display: inline-flex; align-items: center; justify-content: center; padding: 0 20px; color: var(--ink); background: transparent; text-decoration: none; }
 .secondary:hover:not(:disabled) { background: #eee9df; }
 .secondary:disabled { cursor: not-allowed; opacity: .3; }
 .link-button { padding: 0; border: 0; background: transparent; text-decoration: underline; text-underline-offset: 4px; }
@@ -44,6 +44,7 @@ h1 { max-width: 780px; margin: 0; font-family: var(--serif); font-size: clamp(48
 .deck { max-width: 680px; margin: 28px 0; color: #484a47; font-family: var(--serif); font-size: clamp(17px, 2vw, 21px); line-height: 1.8; }
 .promise-list { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .promise-list span { padding: 12px 18px; border-right: 1px solid var(--line); font-size: 13px; }
+.side-quest-link { min-height: 48px; display: inline-flex; align-items: center; margin-top: 28px; color: var(--red); font-weight: 800; text-underline-offset: 5px; }
 .profile-sheet { padding: 26px; background: var(--sheet); border: 1px solid var(--ink); box-shadow: 12px 12px 0 #ded7ca; }
 .sheet-head { display: flex; justify-content: space-between; padding-bottom: 18px; border-bottom: 2px solid var(--ink); font-family: var(--mono); }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 14px; margin: 22px 0; }

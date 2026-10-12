@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#15100d" />
+  <title>上班倒计时｜你未来还有多少天要先交给工作</title>
+  <meta name="description" content="打开就看到你的未来考勤判定：还要上多少天班，通勤会吞掉多少天，真正自由白天还剩多少。" />
+  <link rel="canonical" href="https://puzelin35-cmyk.github.io/spend-musk-money/workdays.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="workdays.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <main id="main">
+    <section class="hero" aria-labelledby="title">
+      <nav class="topline" aria-label="站点导航">
+        <a href="index.html">一生账单</a>
+        <span>普通人模拟器 / 02</span>
+      </nav>
+
+      <div class="hero-grid">
+        <section class="verdict-card" aria-labelledby="title" aria-live="polite">
+          <p class="eyebrow">FUTURE ATTENDANCE VERDICT · <span id="asOfLabel">AS OF —</span></p>
+          <h1 id="title">你未来还有 <span id="heroWorkdays">0</span> 天，要先交给工作。</h1>
+          <p class="lead">退休不是远方。它是每个工作日一点点扣出来的。</p>
+
+          <div class="shock-strip" aria-label="首屏预判">
+            <article>
+              <span>通勤会吞掉</span>
+              <b id="heroCommuteDays">0 天</b>
+              <small id="heroCommuteAwake">约 0 个清醒日</small>
+            </article>
+            <article>
+              <span>完整自由白天</span>
+              <b id="heroFreeDays">0—0 天</b>
+              <small>扣除碎片事务后的估算</small>
+            </article>
+            <article>
+              <span>当前口径</span>
+              <b id="heroProfile">1995 / 60 岁</b>
+              <small>输入时实时改判</small>
+            </article>
+          </div>
+
+          <p class="pain-line">你不是没有时间，你的时间只是被工作和通勤提前分走了。</p>
+        </section>
+
+        <form id="workForm" class="time-card" novalidate>
+          <div class="card-head">
+            <b>调整你的考勤口径</b>
+            <span>改一项，判决立刻变</span>
+          </div>
+          <div id="formError" class="form-error" role="alert" hidden></div>
+          <div class="form-grid">
+            <label>
+              <span>出生年份</span>
+              <input id="birthYear" name="birthYear" type="number" min="1950" max="2010" value="1995" inputmode="numeric" required />
+            </label>
+            <label>
+              <span>城市类型</span>
+              <select id="city" name="city">
+                <option value="tier1">一线城市</option>
+                <option value="new1" selected>新一线城市</option>
+                <option value="county">小城市 / 县城</option>
+              </select>
+            </label>
+            <label>
+              <span>税后月收入</span>
+              <div class="money-input"><i>¥</i><input id="income" name="income" type="number" min="0" max="500000" step="500" value="12000" inputmode="numeric" required /></div>
+              <small>工资降级为辅助信息，不参与主判决排序。</small>
+            </label>
+            <label>
+              <span>预计退休年龄</span>
+              <input id="retireAge" name="retireAge" type="number" min="40" max="75" value="60" inputmode="numeric" required />
+              <small>不自动判断性别岗位，你可以自己改。</small>
+            </label>
+            <label>
+              <span>每周工作天数</span>
+              <input id="workDays" name="workDays" type="number" min="1" max="7" step="0.5" value="5" inputmode="decimal" required />
+            </label>
+            <label>
+              <span>每天工作时长</span>
+              <input id="workHours" name="workHours" type="number" min="1" max="16" step="0.5" value="8" inputmode="decimal" required />
+            </label>
+            <label class="wide">
+              <span>单程通勤时间</span>
+              <div class="range-line">
+                <input id="commute" name="commute" type="range" min="0" max="120" step="5" value="45" />
+                <output id="commuteOutput" for="commute">45 分钟</output>
+              </div>
+            </label>
+          </div>
+          <button class="primary" type="submit">重新计算我的人生考勤</button>
+          <p class="fine-print">本页只在浏览器本地计算，不保存、不上传。</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="result" class="result" aria-labelledby="resultTitle" hidden aria-live="polite">
+      <section class="result-hero">
+        <p class="eyebrow">FINAL ATTENDANCE SHEET</p>
+        <h2 id="resultTitle" tabindex="-1">未来考勤判定书</h2>
+        <div class="three-cuts" aria-label="一屏三刀">
+          <article>
+            <span>第一刀 · 工作日</span>
+            <b id="cutWorkdays">0 天</b>
+            <small id="cutWorkdaysNote">你还要交出去的工作日</small>
+          </article>
+          <article>
+            <span>第二刀 · 工位时间</span>
+            <b id="cutWorkHours">0 小时</b>
+            <small id="cutWorkHoursNote">坐在工位上的时间</small>
+          </article>
+          <article>
+            <span>第三刀 · 通勤时间</span>
+            <b id="cutCommute">0 / 0 天</b>
+            <small>自然日 / 清醒日折算</small>
+          </article>
+        </div>
+        <p class="judge-line">最贵的不是 8 小时上班，而是上班前后那段没人付钱、也没人记账的时间。</p>
+      </section>
+
+      <section class="cut-chart" aria-labelledby="cutChartTitle">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">TIME CUT MAP</p>
+            <h3 id="cutChartTitle">你以为未来还很长，其实先被切走一大块</h3>
+          </div>
+          <span id="lifeExpectancyLabel">寿命参考 79.25 岁</span>
+        </div>
+        <div id="cutBars" class="cut-bars" aria-label="退休前时间切割图"></div>
+        <p id="cutSummary" class="cut-summary"></p>
+      </section>
+
+      <section class="stats-grid" aria-label="完整时间账单">
+        <article><span>未来自然日</span><b id="naturalDays">0 天</b><small id="naturalFormula">退休日期 - 当前日期</small></article>
+        <article class="danger"><span>剩余工作日</span><b id="workdayStat">0 天</b><small id="workdayFormula">剩余周数 × 每周工作天数 - 休假</small></article>
+        <article class="danger"><span>工作占用</span><b id="workHourStat">0 小时</b><small id="workHourFormula">工作日 × 每天工作时长</small></article>
+        <article class="danger"><span>通勤占用</span><b id="commuteStat">0 天</b><small id="commuteFormula">往返通勤 × 工作日</small></article>
+        <article class="green"><span>真正自由白天</span><b id="freeDayStat">0 天</b><small id="freeDayFormula">非工作日中可完整支配的白天估算</small></article>
+        <article class="quiet"><span>未来税后工资</span><b id="futureIncome">¥0</b><small id="incomeFormula">月收入 × 剩余月份</small></article>
+      </section>
+
+      <section class="whatif" aria-labelledby="whatIfTitle">
+        <p class="eyebrow">TAKE BACK TIME</p>
+        <h3 id="whatIfTitle">只改一个决定，你能拿回多少人生？</h3>
+        <div id="whatIfCards" class="whatif-cards"></div>
+        <div id="takeBackResult" class="takeback-card">
+          <span>拿回人生</span>
+          <b>先点一张卡</b>
+          <p>系统会只替换这一项，原始判定不丢失。</p>
+        </div>
+      </section>
+
+      <details class="sources">
+        <summary>查看计算口径、公式和来源</summary>
+        <div class="source-grid">
+          <article>
+            <b>退休年龄</b>
+            <p>页面不自动判断性别、岗位和社保缴费年限；默认 60 岁，可手动修改。政策口径只作为估算说明。</p>
+            <a href="https://www.spp.gov.cn/spp/tt/202409/t20240913_666042.shtml" target="_blank" rel="noreferrer">全国人大常委会决定</a>
+          </article>
+          <article>
+            <b>弹性退休提醒</b>
+            <p>弹性退休规则不等于本页的提前退休假设；“提前退休 5 年”只用于观察时间差。</p>
+            <a href="https://www.news.cn/politics/20250101/9ad9cbe4c7724c03a60a9be2336989b5/c.html" target="_blank" rel="noreferrer">新华社弹性退休办法</a>
+          </article>
+          <article>
+            <b>收入和寿命参照</b>
+            <p>收入只按用户输入线性估算；寿命参考只用于人生进度尺，不预测个人寿命。</p>
+            <a href="DATA_SOURCES.md">查看本站数据口径</a>
+          </article>
+        </div>
+      </details>
+
+      <section class="share-card" aria-label="分享卡">
+        <span>未来考勤判定书</span>
+        <p id="shareLineA">我离退休还有 0 个工作日。</p>
+        <strong id="shareLineB">其中 0 天，会花在通勤路上。</strong>
+        <blockquote id="shareQuote">最贵的不是 8 小时上班，而是上班前后那段没人付钱的时间。</blockquote>
+      </section>
+
+      <div class="result-actions">
+        <button id="copyResult" class="primary" type="button">复制这张人生考勤</button>
+        <a class="secondary" href="index.html">再算钱都去哪了</a>
+        <button id="resetBtn" class="secondary" type="button">重新填写</button>
+      </div>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="workdays.js"></script>
+</body>
+</html>
